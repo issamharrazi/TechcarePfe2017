@@ -5,7 +5,7 @@ parameters:
 
 services:
     token_authenticator:
-        class: AcmeStoreBundle\Security\TokenAuthenticator
+        class: GuideTouristiqueBundle\Security\TokenAuthenticator
         arguments: ['@lexik_jwt_authentication.encoder.default', '@doctrine.odm.mongodb.document_manager']
 
 #//////////////////////////////////////////serviceimpdao////////////////////////////////////////////

@@ -8,7 +8,6 @@
 
 
 namespace GuideTouristiqueBundle\Document;
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -96,4 +95,33 @@ class User extends BaseUser
     }
 
 
+    /**
+     * Add task
+     *
+     * @param \GuideTouristiqueBundle\Document\Task $task
+     */
+    public function addTask(\GuideTouristiqueBundle\Document\Task $task)
+    {
+        $this->tasks[] = $task;
+    }
+
+    /**
+     * Remove task
+     *
+     * @param \GuideTouristiqueBundle\Document\Task $task
+     */
+    public function removeTask(\GuideTouristiqueBundle\Document\Task $task)
+    {
+        $this->tasks->removeElement($task);
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return \Doctrine\Common\Collections\Collection $tasks
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
 }

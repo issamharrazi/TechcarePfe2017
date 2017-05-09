@@ -1,6 +1,3 @@
-acme_store:
-    resource: "@GuideTouristiqueBundle/Resources/config/routing.yml"
-    prefix:   /
 
 app:
     resource: "@GuideTouristiqueBundle/Controller/DefaultController.php"

@@ -61,4 +61,5 @@ abstract class Offre
      */
     protected $etat;
 
+
 }

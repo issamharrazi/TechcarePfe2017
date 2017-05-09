@@ -70,14 +70,14 @@ doctrine_mongodb:
         default:
             server: "%mongodb_server%"
             options: {}
-    default_database: Test_Base
+    default_database: Mag_database
     document_managers:
         default:
             auto_mapping: true
 fos_user:
     db_driver: mongodb # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
-    user_class: AcmeStoreBundle\Document\User
+    user_class: GuideTouristiqueBundle\Document\User
     from_email:
             address: fara7zr@gmail.com
             sender_name: You
