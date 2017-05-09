@@ -1,0 +1,35 @@
+acme_store:
+    resource: "@GuideTouristiqueBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@GuideTouristiqueBundle/Controller/DefaultController.php"
+    type:     annotation
+
+places:
+    type:     rest
+    resource: GuideTouristiqueBundle\Controller\DefaultController
+
+users:
+    type:     rest
+    resource: GuideTouristiqueBundle\Controller\UserController
+Registration:
+    type:     rest
+    resource: GuideTouristiqueBundle\Controller\RegistrationController
+Login:
+    type:     rest
+    resource: GuideTouristiqueBundle\Controller\LoginController
+
+LoginTokenWelcome:
+    type:     rest
+    resource: GuideTouristiqueBundle\Controller\WelcomeController
+Task:
+    type:     rest
+    resource: GuideTouristiqueBundle\Controller\TaskController
+
+fos_user:
+     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+routing_rest:
+    resource: routing_rest.yml
+

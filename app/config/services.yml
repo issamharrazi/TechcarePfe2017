@@ -1,0 +1,203 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    token_authenticator:
+        class: AcmeStoreBundle\Security\TokenAuthenticator
+        arguments: ['@lexik_jwt_authentication.encoder.default', '@doctrine.odm.mongodb.document_manager']
+
+#//////////////////////////////////////////serviceimpdao////////////////////////////////////////////
+
+
+
+
+    s.type_publicite.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\TypePubliciteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.publicite.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\PubliciteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.cpack_publicite.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackPubliciteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.categorie.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CategorieImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.fiche_technique.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\FicheTechniqueImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.offre.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.cpack_fiche_technique.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackFicheTechniqueImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.pack.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\PackImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.image.impdao:
+            class:     GuideTouristiqueBundle\Dao\ImpDao\ImageImpDao
+            arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.video.impdao:
+            class:     GuideTouristiqueBundle\Dao\ImpDao\VideoImpDao
+            arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.offreMedia.impdao:
+            class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreMediaImpDao
+            arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.cpack_image.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackImageImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.cpack_video.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackVideoImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.offre_fiche_technique.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreFicheTechniqueImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.offre_video.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreVideoImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.offre_image.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreImageImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.offre_publicite.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffrePubliciteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.offre_visite_virtuelle.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreVisiteVirtuelleImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.devise.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\DeviseImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.etat.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\EtatImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.duree.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\DureeImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+
+
+#////////////////////////////////////////////ImpMetier////////////////////////////////////////////////////////////
+
+    s.offre_fiche_technique.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffreFicheTechniqueImpMetier
+              arguments:  ['@s.offre_fiche_technique.impdao','@s.image.impmetier','@s.duree.impmetier','@s.etat.impmetier','@s.devise.impmetier']
+
+    s.offre_video.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffreVideoImpMetier
+              arguments:  ['@s.offre_video.impdao','@s.image.impmetier','@s.duree.impmetier','@s.etat.impmetier','@s.devise.impmetier']
+
+    s.offre_image.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffreImageImpMetier
+              arguments:  ['@s.offre_image.impdao','@s.image.impmetier','@s.duree.impmetier','@s.etat.impmetier','@s.devise.impmetier']
+
+    s.offre_publicite.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffrePubliciteImpMetier
+              arguments:  ['@s.offre_publicite.impdao','@s.image.impmetier','@s.duree.impmetier','@s.etat.impmetier','@s.devise.impmetier']
+
+
+    s.offre_visite_virtuelle.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffreVisiteVirtuelleImpMeter
+              arguments:  ['@s.offre_visite_virtuelle.impdao','@s.image.impmetier','@s.duree.impmetier','@s.etat.impmetier','@s.devise.impmetier']
+
+    s.duree.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\DureeImpMetier
+              arguments:  ['@s.duree.impdao']
+
+
+
+    s.categorie.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CategorieImpMetier
+              arguments:  ['@s.categorie.impdao','@s.image.impmetier','@s.etat.impmetier']
+
+    s.fiche_technique.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\FicheTechniqueImpMetier
+              arguments:  ['@s.fiche_technique.impdao']
+
+    s.offre.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffreImpMetier
+              arguments:  ['@s.offre.impdao']
+
+    s.cpack_fiche_technique.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CpackFicheTechniqueImpMetier
+              arguments:  ['@s.cpack_fiche_technique.impdao','@s.offre_fiche_technique.impmetier','@s.categorie.impmetier','@s.fiche_technique.impmetier']
+
+
+    s.type_publicite.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\TypePubliciteImpMetier
+              arguments:  ['@s.type_publicite.impdao']
+
+
+    s.publicite.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\PubliciteImpMetier
+              arguments:  ['@s.publicite.impdao','@s.type_publicite.impmetier','@s.image.impmetier']
+
+
+
+
+    s.cpack_publicite.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CpackPublicteImpMetier
+              arguments:  ['@s.cpack_publicite.impdao','@s.offre_publicite.impmetier','@s.categorie.impmetier','@s.publicite.impmetier']
+
+
+
+    s.image.impmetier:
+                  class: GuideTouristiqueBundle\Metier\ImpMetier\ImageImpMetier
+                  arguments:  ['@s.image.impdao']
+
+    s.video.impmetier:
+                  class: GuideTouristiqueBundle\Metier\ImpMetier\VideoImpMetier
+                  arguments:  ['@s.video.impdao']
+
+    s.offreMedia.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\OffreMediaImpMetier
+              arguments:  ['@s.offreMedia.impdao']
+
+    s.cpack_image.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CpackImageImpMetier
+              arguments:  ['@s.cpack_image.impdao','@s.offre_image.impmetier','@s.categorie.impmetier','@s.image.impmetier']
+
+
+    s.cpack_video.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CpackVideoImpMetier
+              arguments:  ['@s.cpack_video.impdao','@s.offre_video.impmetier','@s.categorie.impmetier','@s.video.impmetier']
+
+    s.pack.impmetier:
+                  class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\PackImpMetier
+                  arguments:  ['@s.pack.impdao','@s.cpack_fiche_technique.impmetier','@s.cpack_image.impmetier','@s.cpack_video.impmetier']
+
+    s.devise.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\DeviseImpMetier
+              arguments:  ['@s.devise.impdao','@s.etat.impmetier']
+
+    s.etat.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\EtatImpMetier
+              arguments:  ['@s.etat.impdao']
