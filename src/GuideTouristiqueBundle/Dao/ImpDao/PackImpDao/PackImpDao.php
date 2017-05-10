@@ -31,6 +31,8 @@ class PackImpDao extends GenericImplDao implements PackIdao
             $pack->setCpackVideo($data['cpackVideo']);
         } elseif (isset($data['cpackPublicite'])) {
             $pack->setCpackPublicite($data['cpackPublicite']);
+        } elseif (isset($data['cpackVisiteVirtuelle'])) {
+            $pack->setCpackPublicite($data['cpackVisiteVirtuelle']);
         }
 
 

@@ -17,15 +17,17 @@ class PackImpMetier implements PackIMetier
     const CLASSNAMEPACK = 'Pack';
     protected static $impdaoPack;
     protected static $metierImpCpackFicheTechnique;
+    protected static $metierImpCpackVisiteVirtuelle;
     protected static $metierImpCpackImage;
     protected static $metierImpCpackVideo;
     protected static $metierImpCpackPublicite;
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\PackIDao\PackIdao $impdaopack, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackFicheTechniqueIMetier $metierImpCpackFicheTechnique, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackImageIMetier $metierImpCpackImage, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackVideoIMetier $metierImpCpackVideo, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackPubliciteIMetier $metierImpCpackPublicite)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\PackIDao\PackIdao $impdaopack, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackFicheTechniqueIMetier $metierImpCpackFicheTechnique, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackImageIMetier $metierImpCpackImage, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackVideoIMetier $metierImpCpackVideo, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackPubliciteIMetier $metierImpCpackPublicite, \GuideTouristiqueBundle\Metier\IMetier\PackIMetier\CpackVisiteVirtuelleIMetier $metierImpCpackVisiteVirtuelle)
     {
 
 
         self::$metierImpCpackFicheTechnique = $metierImpCpackFicheTechnique;
+        self::$metierImpCpackVisiteVirtuelle = $metierImpCpackVisiteVirtuelle;
         self::$metierImpCpackPublicite = $metierImpCpackPublicite;
         self::$metierImpCpackImage = $metierImpCpackImage;
         self::$metierImpCpackVideo = $metierImpCpackVideo;
@@ -50,6 +52,8 @@ class PackImpMetier implements PackIMetier
                 $dataSave['cpackVideo'] = self::$metierImpCpackVideo->addCpackVideo($packData);
             } elseif ($packData['num'] == 4) {
                 $dataSave['cpackPublicite'] = self::$metierImpCpackPublicite->addCpackPublicite($packData);
+            } elseif ($packData['num'] == 5) {
+                $dataSave['cpackVisiteVirtuelle'] = self::$metierImpCpackVisiteVirtuelle->addCpackVisiteVirtuelle($packData);
             }
 
 

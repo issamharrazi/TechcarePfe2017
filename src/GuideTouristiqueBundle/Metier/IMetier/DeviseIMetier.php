@@ -21,4 +21,6 @@ interface DeviseIMetier
 
     public function getDevise($id);
 
+    public function findAllActivatedDevise();
+
 }

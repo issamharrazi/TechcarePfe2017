@@ -111,7 +111,7 @@ class DeviseController extends Controller
     /**
      * @Rest\Delete("/deleteCurrency/{idDevise}")
      */
-    public function deleteDevise(Request $request)
+    public function deleteDeviseAction(Request $request)
     {
         $serviceDevise = $this->get(self::SERVICENAME);
         $serviceDevise->deleteDevise($request->get('idDevise'));

@@ -12,7 +12,6 @@ use Exception;
 use GuideTouristiqueBundle\Dao\IDao\PackIDao\CpackFicheTechniqueIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
 use GuideTouristiqueBundle\Document\CpackFicheTechnique;
-use GuideTouristiqueBundle\Document\FicheTechnique;
 
 
 class CpackFicheTechniqueImpDao extends GenericImplDao implements CpackFicheTechniqueIdao
@@ -22,14 +21,11 @@ class CpackFicheTechniqueImpDao extends GenericImplDao implements CpackFicheTech
     {
         // TODO: Implement add() method.
 
-        $data['ficheTechnique'] = new FicheTechnique($data['ficheTechnique']['description']);
 
         $cpackFicheTechnique = new CpackFicheTechnique($data['offre'], $data['ficheTechnique'], $data['categorie']);
 
         try {
 
-
-            self::$documentManager->persist($data['ficheTechnique']);
 
 
             $cpackFicheTechnique = self::$documentManager->merge($cpackFicheTechnique);

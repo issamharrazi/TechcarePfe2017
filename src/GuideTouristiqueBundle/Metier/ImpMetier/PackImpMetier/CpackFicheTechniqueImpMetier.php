@@ -41,6 +41,7 @@ class CpackFicheTechniqueImpMetier implements CpackFicheTechniqueIMetier
 
         //  $data = json_decode($requestContent, true);
 
+        $data['ficheTechnique'] = self::$metierImpFicheTechnique->addFicheTechnique($data['ficheTechnique']);
 
         $data['offre'] = self::$metierImpOffre->getOffreFicheTechnique($data['offre']['id']);
 

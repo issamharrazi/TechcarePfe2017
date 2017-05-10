@@ -21,6 +21,11 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\PubliciteImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+
+    s.visite_virtuelle.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\VisiteVirtuelleImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
     s.cpack_publicite.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackPubliciteImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
@@ -83,6 +88,10 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffrePubliciteImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.cpack_visite_virtuelle.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackVisiteVirtuelleImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
 
     s.offre_visite_virtuelle.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\OffreVisiteVirtuelleImpDao
@@ -100,6 +109,10 @@ services:
 
     s.duree.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\DureeImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.commentaire.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CommentaireImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
 
@@ -150,6 +163,15 @@ services:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CpackFicheTechniqueImpMetier
               arguments:  ['@s.cpack_fiche_technique.impdao','@s.offre_fiche_technique.impmetier','@s.categorie.impmetier','@s.fiche_technique.impmetier']
 
+    s.cpack_visite_virtuelle.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CpackVisiteVirtuelleImpMetier
+              arguments:  ['@s.cpack_visite_virtuelle.impdao','@s.offre_visite_virtuelle.impmetier','@s.categorie.impmetier','@s.visite_virtuelle.impmetier']
+
+    s.visite_virtuelle.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\VisiteVirtuelleImpMetier
+              arguments:  ['@s.visite_virtuelle.impdao']
+
+
 
     s.type_publicite.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\TypePubliciteImpMetier
@@ -192,11 +214,16 @@ services:
 
     s.pack.impmetier:
                   class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\PackImpMetier
-                  arguments:  ['@s.pack.impdao','@s.cpack_fiche_technique.impmetier','@s.cpack_image.impmetier','@s.cpack_video.impmetier']
+                  arguments:  ['@s.pack.impdao','@s.cpack_fiche_technique.impmetier','@s.cpack_image.impmetier','@s.cpack_video.impmetier','@s.cpack_publicite.impmetier','@s.cpack_visite_virtuelle.impmetier',]
 
     s.devise.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\DeviseImpMetier
               arguments:  ['@s.devise.impdao','@s.etat.impmetier']
+
+
+    s.commentaire.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CommentaireImpMetier
+              arguments:  ['@s.commentaire.impdao','@s.etat.impmetier']
 
     s.etat.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\EtatImpMetier
