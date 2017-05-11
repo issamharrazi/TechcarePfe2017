@@ -26,12 +26,36 @@ class Langue
     private $nom;
 
     /**
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     */
+    private $etat;
+
+    /**
      * Langue constructor.
      * @param $nom
      */
-    public function __construct($nom)
+    public function __construct($nom, $etat)
     {
         $this->nom = $nom;
+        $this->etat = $etat;
+
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param mixed $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
     }
 
     /**

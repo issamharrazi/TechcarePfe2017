@@ -115,6 +115,14 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CommentaireImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.language.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\LangueImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.actualite.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PublicationImpDao\ActualiteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
 
 
 
@@ -150,6 +158,14 @@ services:
     s.categorie.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CategorieImpMetier
               arguments:  ['@s.categorie.impdao','@s.image.impmetier','@s.etat.impmetier']
+
+    s.language.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\LangueImpMetier
+              arguments:  ['@s.language.impdao','@s.etat.impmetier']
+
+    s.actualite.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\ActualiteImpMetier
+              arguments:  ['@s.actualite.impdao','@s.etat.impmetier']
 
     s.fiche_technique.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\FicheTechniqueImpMetier

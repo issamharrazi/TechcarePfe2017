@@ -19,6 +19,8 @@ interface CategorieIMetier
 
     public function getAllCategorie();
 
+    public function findAllActivatedCategories();
+
     public function getCategorie($id);
 
     public function getCategorieByNum($num);

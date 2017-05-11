@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-class Actualites
+class Actualite
 {
     /**
      * @MongoDB\Id(strategy="increment")
@@ -25,13 +25,9 @@ class Actualites
      */
     private $datepublication;
 
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    private $dateajout;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ActualitesTraduction")
+     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ActualiteTraduction")
      */
     private $actualitestraduction;
 
@@ -40,11 +36,20 @@ class Actualites
      */
     private $etat;
 
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Commentaire")
+     */
+    private $commentaires;
 
-    public function __construct()
+
+    public function __construct($datepublication, $etat)
     {
         $this->actualitestraduction = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->datepublication = $datepublication;
+        $this->etat = $etat;
     }
+
 
     /**
      * Get id
@@ -79,33 +84,11 @@ class Actualites
     }
 
     /**
-     * Get dateajout
-     *
-     * @return string $dateajout
-     */
-    public function getDateajout()
-    {
-        return $this->dateajout;
-    }
-
-    /**
-     * Set dateajout
-     *
-     * @param string $dateajout
-     * @return $this
-     */
-    public function setDateajout($dateajout)
-    {
-        $this->dateajout = $dateajout;
-        return $this;
-    }
-
-    /**
      * Add actualitestraduction
      *
-     * @param \GuideTouristiqueBundle\Document\ActualitesTraduction $actualitestraduction
+     * @param \GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction
      */
-    public function addActualitestraduction(\GuideTouristiqueBundle\Document\ActualitesTraduction $actualitestraduction)
+    public function addActualitestraduction(\GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction)
     {
         $this->actualitestraduction[] = $actualitestraduction;
     }
@@ -113,9 +96,9 @@ class Actualites
     /**
      * Remove actualitestraduction
      *
-     * @param \GuideTouristiqueBundle\Document\ActualitesTraduction $actualitestraduction
+     * @param \GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction
      */
-    public function removeActualitestraduction(\GuideTouristiqueBundle\Document\ActualitesTraduction $actualitestraduction)
+    public function removeActualitestraduction(\GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction)
     {
         $this->actualitestraduction->removeElement($actualitestraduction);
     }
@@ -150,5 +133,35 @@ class Actualites
     {
         $this->etat = $etat;
         return $this;
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \GuideTouristiqueBundle\Document\Commentaire $commentaire
+     */
+    public function addCommentaire(\GuideTouristiqueBundle\Document\Commentaire $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \GuideTouristiqueBundle\Document\Commentaire $commentaire
+     */
+    public function removeCommentaire(\GuideTouristiqueBundle\Document\Commentaire $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection $commentaires
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

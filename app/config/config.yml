@@ -79,7 +79,7 @@ fos_user:
     firewall_name: main
     user_class: GuideTouristiqueBundle\Document\User
     from_email:
-            address: fara7zr@gmail.com
+            address: techcare2017@gmail.com
             sender_name: You
 
 fos_rest:

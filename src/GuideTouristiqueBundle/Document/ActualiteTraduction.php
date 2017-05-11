@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-class ActualitesTraduction
+class ActualiteTraduction
 {
 
     /**
@@ -38,7 +38,7 @@ class ActualitesTraduction
     private $langue;
 
     /**
-     * ActualitesTraduction constructor.
+     * ActualiteTraduction constructor.
      * @param $nom
      * @param $contenu
      * @param $langue
