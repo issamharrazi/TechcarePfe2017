@@ -40,7 +40,7 @@ class TaskController extends Controller
     {
         $tasks = [];
         $tasks = $this->get('doctrine_mongodb')
-            ->getRepository('GuideTouristiqueBundle:Task')
+            ->getRepository('Tache.php')
             ->findAll();
 
 
@@ -62,7 +62,7 @@ class TaskController extends Controller
     public function removeTaskAction(Request $request)
     {
         $task = $this->get('doctrine_mongodb')
-            ->getRepository('GuideTouristiqueBundle:Task')
+            ->getRepository('Tache.php')
             ->find($request->get('id'));
         $dm = $this->get('doctrine_mongodb')->getManager();
         $dm->remove($task);
@@ -77,7 +77,7 @@ class TaskController extends Controller
     public function updateTaskAction(Request $request)
     {
         $task = $this->get('doctrine_mongodb')
-            ->getRepository('GuideTouristiqueBundle:Task')
+            ->getRepository('Tache.php')
             ->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
 
 

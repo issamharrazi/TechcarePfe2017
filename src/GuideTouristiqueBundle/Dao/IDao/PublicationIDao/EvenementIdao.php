@@ -1,28 +1,26 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: issam
- * Date: 11/05/2017
- * Time: 11:25
+ * Date: 13/05/2017
+ * Time: 00:39
  */
 
 namespace GuideTouristiqueBundle\Dao\IDao\PublicationIDao;
 
 use GuideTouristiqueBundle\Dao\IDao\GenericIDao;
 
-interface ActualiteIdao extends GenericIDao
+interface EvenementIdao extends GenericIDao
 {
-    public function addActualites($actualites);
+    public function addEvenement($Evenement);
 
-    public function addCommentaireActualites($actualite, $data);
+    public function addCommentaireEvenement($Evenement, $data);
 
-    public function updateCommentaireActualite($actualite, $data);
+    public function updateCommentaireEvenement($Evenement, $data);
     //   public function deleteCommentaireActualite($actualites);
     //  public function showCommentairesActualite($actualites);
     //  public function showCommentaireActualite();
 
-    public function updateActualites($oldActualites, $newActualites);
-
+    public function updateEvenement($oldEvenement, $newEvenement);
 
 }

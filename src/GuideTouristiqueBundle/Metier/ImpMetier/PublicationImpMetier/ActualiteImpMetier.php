@@ -17,24 +17,35 @@ class ActualiteImpMetier implements ActualiteIMetier
     const CLASSNAMEACTUALITE = 'Actualite';
     protected static $idaoImpActualite;
     protected static $etatImpMetier;
+    protected static $actualiteTraductionImpMetier;
+    protected static $commentaireImpMetier;
 
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\PublicationIDao\ActualiteIdao $idaoImpActualite, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\PublicationIDao\ActualiteIdao $idaoImpActualite, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\PublicationIMetier\ActualiteTraductionIMetier $actualiteTraductionImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CommentaireIMetier $commentaireImpMetier)
     {
+
 
         self::$idaoImpActualite = $idaoImpActualite;
 
 
         self::$etatImpMetier = $etatImpMetier;
+        self::$actualiteTraductionImpMetier = $actualiteTraductionImpMetier;
+        self::$commentaireImpMetier = $commentaireImpMetier;
 
 
     }
 
-    public function addActualite($requestContent)
+    public function addActualite($data)
     {
         // TODO: Implement addActualite() method.
 
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
+
+        for ($i = 0; $i < count($data['actualitestraduction']); $i++) {
+
+            $data['actualitestraduction'][$i] = self::$actualiteTraductionImpMetier->addActualiteTraduction($data['actualitestraduction'][$i]);
+        }
+
 
 
         $actualite = self::$idaoImpActualite->addActualites($data);
@@ -75,10 +86,10 @@ class ActualiteImpMetier implements ActualiteIMetier
     public function getActualite($id)
     {
         // TODO: Implement getActualite() method.
-        $categorie = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $id);
+        $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $id);
 
 
-        return $categorie;
+        return $actualite;
     }
 
     public function findAllActivatedActualites()
@@ -90,5 +101,26 @@ class ActualiteImpMetier implements ActualiteIMetier
         $actualites = static::$idaoImpActualite->findAllActivated(self::CLASSNAMEACTUALITE);
 
         return $actualites;
+    }
+
+    public function addCommentaireActualite($data)
+    {
+        // TODO: Implement addCommentaireActualite() method.
+        $data['commentaire'] = static::$commentaireImpMetier->addCommentaire($data['commentare']);
+        $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $data['actualite']['id']);
+
+        static::$idaoImpActualite->addCommentaireActualites($actualite, $data);
+
+    }
+
+    public function updateCommentaireActualite($data)
+    {
+        /*   // TODO: Implement updateCommentaireActualite() method.
+           $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $data['actualite']['id']);
+
+           $data['commentaire'] = static::$commentaireImpMetier->updateCommentaire($data['commentare']);
+           static::$idaoImpActualite->updateCommentaireActualite($actualite,$data);*/
+
+
     }
 }

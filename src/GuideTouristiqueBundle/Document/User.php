@@ -35,33 +35,14 @@ class User extends BaseUser
      */
     protected $roles;
     /**
-     * @MongoDB\ReferenceMany(targetDocument="Task", mappedBy="user")
+     * @MongoDB\ReferenceMany(targetDocument="Tache", mappedBy="user")
      */
-    protected $tasks = array();
+    protected $taches = array();
 
     /**
-     * User constructor.
-     */
-
-
-    /**
-     * @return mixed
-     */
-    public function getNumTel()
-    {
-        return $this->numTel;
-    }
-
-    /**
-     * @param mixed $numTel
-     */
-    public function setNumTel($numTel)
-    {
-        $this->numTel = $numTel;
-    }
-
-    /**
-     * @return mixed
+     * Get prenom
+     *
+     * @return string $prenom
      */
     public function getPrenom()
     {
@@ -69,59 +50,66 @@ class User extends BaseUser
     }
 
     /**
-     * @param mixed $prenom
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return $this
      */
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
+        return $this;
     }
 
     /**
-     * Get id
+     * Get numTel
      *
-     * @return id $id
+     * @return integer $numTel
      */
-    public function getId()
+    public function getNumTel()
     {
-        return $this->id;
+        return $this->numTel;
     }
 
     /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-
-    /**
-     * Add task
+     * Set numTel
      *
-     * @param \GuideTouristiqueBundle\Document\Task $task
+     * @param integer $numTel
+     * @return $this
      */
-    public function addTask(\GuideTouristiqueBundle\Document\Task $task)
+    public function setNumTel($numTel)
     {
-        $this->tasks[] = $task;
+        $this->numTel = $numTel;
+        return $this;
     }
 
     /**
-     * Remove task
+     * Add tach
      *
-     * @param \GuideTouristiqueBundle\Document\Task $task
+     * @param \GuideTouristiqueBundle\Document\Tache $tach
      */
-    public function removeTask(\GuideTouristiqueBundle\Document\Task $task)
+    public function addTach(\GuideTouristiqueBundle\Document\Tache $tach)
     {
-        $this->tasks->removeElement($task);
+        $this->taches[] = $tach;
     }
 
     /**
-     * Get tasks
+     * Remove tach
      *
-     * @return \Doctrine\Common\Collections\Collection $tasks
+     * @param \GuideTouristiqueBundle\Document\Tache $tach
      */
-    public function getTasks()
+    public function removeTach(\GuideTouristiqueBundle\Document\Tache $tache)
     {
-        return $this->tasks;
+        $this->taches->removeElement($tache);
+    }
+
+    /**
+     * Get taches
+     *
+     * @return \Doctrine\Common\Collections\Collection $taches
+     */
+    public function getTaches()
+    {
+        return $this->taches;
     }
 }

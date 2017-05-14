@@ -42,13 +42,13 @@ class RegistrationController extends BaseController
         $user->setEmail($request->get('email'));
         $user->setNumTel($request->get('numTel'));
         $user->setRoles(array($request->get('role')));
-
-
+        $user->setEnabled(true);
         $dm->persist($user);
         $dm->flush();
 
         return new Response($this->serialize('User created.'), Response::HTTP_CREATED);
     }
+
 
     /**
      * @param  Request $request

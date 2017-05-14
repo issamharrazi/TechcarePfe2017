@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: issam
- * Date: 10/05/2017
- * Time: 17:10
+ * Date: 12/05/2017
+ * Time: 18:25
  */
 
 namespace GuideTouristiqueBundle\Document;
@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-class ActualiteTraduction
+class EvenementTraduction
 {
 
     /**
@@ -30,7 +30,13 @@ class ActualiteTraduction
     /**
      * @MongoDB\Field(type="string")
      */
-    private $contenu;
+    private $description;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $lieu;
+
 
     /**
      * @MongoDB\Field(type="string")
@@ -47,18 +53,70 @@ class ActualiteTraduction
     private $langue;
 
     /**
-     * ActualiteTraduction constructor.
+     * EvenementTraduction constructor.
      * @param $nom
-     * @param $contenu
+     * @param $description
+     * @param $lieu
+     * @param $dateAjout
+     * @param $dateModification
      * @param $langue
      */
-    public function __construct($nom, $contenu, $langue, $dateAjout, $dateModification)
+    public function __construct($nom, $description, $lieu, $dateAjout, $dateModification, $langue)
     {
         $this->nom = $nom;
-        $this->contenu = $contenu;
-        $this->langue = $langue;
+        $this->description = $description;
+        $this->lieu = $lieu;
         $this->dateAjout = $dateAjout;
         $this->dateModification = $dateModification;
+        $this->langue = $langue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLieu()
+    {
+        return $this->lieu;
+    }
+
+    /**
+     * @param mixed $lieu
+     */
+    public function setLieu($lieu)
+    {
+        $this->lieu = $lieu;
     }
 
     /**
@@ -96,38 +154,6 @@ class ActualiteTraduction
     /**
      * @return mixed
      */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param mixed $nom
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getContenu()
-    {
-        return $this->contenu;
-    }
-
-    /**
-     * @param mixed $contenu
-     */
-    public function setContenu($contenu)
-    {
-        $this->contenu = $contenu;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getLangue()
     {
         return $this->langue;
@@ -141,6 +167,7 @@ class ActualiteTraduction
         $this->langue = $langue;
     }
 
+
     /**
      * Get id
      *
@@ -150,6 +177,4 @@ class ActualiteTraduction
     {
         return $this->id;
     }
-
-
 }

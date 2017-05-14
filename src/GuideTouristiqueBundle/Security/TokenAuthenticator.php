@@ -59,7 +59,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
         $username = $data['username'];
 
-        return $this->dm->getRepository('AcmeStoreBundle:User')
+        return $this->dm->getRepository('GuideTouristiqueBundle:User')
             ->findOneBy(['username' => $username]);
 
     }

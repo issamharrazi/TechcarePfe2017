@@ -21,7 +21,15 @@ class ActualiteImpDao extends GenericImplDao implements ActualiteIdao
     {
         // TODO: Implement addActualites() method.
         $actualite = new Actualite(date('Y-m-d H:i:s'), $data['etat']);
+
+
         try {
+
+            for ($i = 0; $i < count($data['actualitestraduction']); $i++) {
+                $actualite->addActualitestraduction($data['actualitestraduction'][$i]);
+            }
+
+
 
 
             $actualite = self::$documentManager->merge($actualite);
@@ -46,5 +54,29 @@ class ActualiteImpDao extends GenericImplDao implements ActualiteIdao
 
 
         return $actualite;
+    }
+
+    public function addCommentaireActualites($actualite, $data)
+    {
+
+        // TODO: Implement addCommentaireActualites() method.
+        $actualite->addCommentaire($data['commentaire']);
+        self::$documentManager->persist($actualite);
+        self::$documentManager->flush();
+
+
+    }
+
+    public function updateCommentaireActualite($actualite, $data)
+    {
+        // TODO: Implement updateCommentaireActualite() method.
+
+        //   $actualite = new Actualite(date('Y-m-d H:i:s'), $data['etat']);
+
+        // $actualite->($data['commentaire']);
+
+
+        $actualite = self::$documentManager->merge($actualite);
+
     }
 }

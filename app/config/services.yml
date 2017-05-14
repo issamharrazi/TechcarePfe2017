@@ -115,7 +115,7 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CommentaireImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
-    s.language.impdao:
+    s.langue.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\LangueImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
@@ -123,6 +123,21 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PublicationImpDao\ActualiteImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.actualite_traduction.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PublicationImpDao\ActualiteTraductionImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.evenement_traduction.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PublicationImpDao\EvenementTraductionImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.evenement.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\PublicationImpDao\EvenementImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.tache.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\TacheImpDao\TacheImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
 
 
 
@@ -159,13 +174,27 @@ services:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CategorieImpMetier
               arguments:  ['@s.categorie.impdao','@s.image.impmetier','@s.etat.impmetier']
 
-    s.language.impmetier:
+
+    s.langue.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\LangueImpMetier
-              arguments:  ['@s.language.impdao','@s.etat.impmetier']
+              arguments:  ['@s.langue.impdao','@s.etat.impmetier']
 
     s.actualite.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\ActualiteImpMetier
-              arguments:  ['@s.actualite.impdao','@s.etat.impmetier']
+              arguments:  ['@s.actualite.impdao','@s.etat.impmetier','@s.actualite_traduction.impmetier','@s.commentaire.impmetier']
+
+    s.evenement.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\EvenementImpMetier
+              arguments:  ['@s.evenement.impdao','@s.etat.impmetier','@s.evenement_traduction.impmetier','@s.commentaire.impmetier']
+
+    s.actualite_traduction.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\ActualiteTraductionImpMetier
+              arguments:  ['@s.actualite_traduction.impdao','@s.langue.impmetier']
+
+    s.evenement_traduction.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\EvenementTraductionImpMetier
+              arguments:  ['@s.evenement_traduction.impdao','@s.langue.impmetier']
+
 
     s.fiche_technique.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\FicheTechniqueImpMetier

@@ -17,14 +17,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ActualiteController extends Controller
 {
+
     const SERVICENAME = 's.actualite.impmetier';
 
     /**
-     * @Rest\Post("/addActuality")
+     * @Rest\Post("/addNews")
      * @param Request $request
      * @return JsonResponse
      */
-    public function addActualityAction(Request $request)
+    public function addNewsAction(Request $request)
     {
 
         $data = json_decode($request->getContent(), true);
@@ -36,11 +37,11 @@ class ActualiteController extends Controller
     }
 
     /**
-     * @Rest\Put("/updateActuality")
+     * @Rest\Put("/updateNews")
      * @param Request $request
      * @return JsonResponse
      */
-    public function updateActualityAction(Request $request)
+    public function updateNewsAction(Request $request)
     {
 
         $data = json_decode($request->getContent(), true);
@@ -54,10 +55,10 @@ class ActualiteController extends Controller
 
 
     /**
-     * @Rest\Get("/getAllActualities")
+     * @Rest\Get("/getAllNews")
      * @return JsonResponse
      */
-    public function getAllActualitiesAction()
+    public function getAllNewsAction()
     {
 
 
@@ -71,10 +72,10 @@ class ActualiteController extends Controller
     }
 
     /**
-     * @Rest\Get("/getActivatedActualities")
+     * @Rest\Get("/getActivatedNews)
      * @return JsonResponse
      */
-    public function getActivatedActualitiesAction()
+    public function getActivatedNewsAction()
     {
 
 
@@ -89,9 +90,9 @@ class ActualiteController extends Controller
 
 
     /**
-     * @Rest\Get("/getActuality/{idActuality}")
+     * @Rest\Get("/getNews/{idNews}")
      */
-    public function getActualityAction(Request $request)
+    public function getNewsAction(Request $request)
     {
         $serviceActuality = $this->get(self::SERVICENAME);
         $Actuality = $serviceActuality->getActualite($request->get('idActuality'));
@@ -104,9 +105,9 @@ class ActualiteController extends Controller
 
 
     /**
-     * @Rest\Delete("/deleteActuality/{idActuality}")
+     * @Rest\Delete("/deleteNews/{idNews}")
      */
-    public function deleteActualityAction(Request $request)
+    public function deleteNewsAction(Request $request)
     {
         $serviceActuality = $this->get(self::SERVICENAME);
         $serviceActuality->deleteActuality($request->get('idActuality'));
