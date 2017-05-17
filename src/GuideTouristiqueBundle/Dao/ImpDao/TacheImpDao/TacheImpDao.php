@@ -21,7 +21,7 @@ class TacheImpDao extends GenericImplDao implements TacheIdao
     public function addTache($data)
     {
         // TODO: Implement addTache() method.
-        $tache = new Tache($data['nom'], $data['description'], $data['user'], $data['etat']);
+        $tache = new Tache($data['nom'], $data['description'], $data['admin'], $data['etat']);
         try {
 
 
@@ -40,7 +40,7 @@ class TacheImpDao extends GenericImplDao implements TacheIdao
         // TODO: Implement updateTache() method.
         $tache->setNom($data['nom']);
         $tache->setDescription($data['description']);
-        $tache->setUser($data['user']);
+        $tache->setAdmin($data['admin']);
         $tache->setEtat($data['etat']);
 
         $tache = self::$documentManager->merge($tache);

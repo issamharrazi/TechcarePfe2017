@@ -11,7 +11,6 @@ namespace GuideTouristiqueBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use GuideTouristiqueBundle\services\Serialiser;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,18 +98,4 @@ class ImageController extends Controller
     }
 
 
-    /**
-     * @Route("/")
-     */
-    public function indexAction(Request $request)
-    {
-        $serviceImage = $this->get(self::SERVICENAME);
-        $images = $serviceImage->getAllImages();
-
-
-        // $imagesJson= Serialiser::serializer($images);
-
-
-        return $this->render('GuideTouristiqueBundle:Default:index.html.twig', array('form' => $images));
-    }
 }

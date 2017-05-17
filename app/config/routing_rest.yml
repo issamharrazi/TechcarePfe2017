@@ -1,6 +1,10 @@
-login:
+client:
     type: rest
-    resource: GuideTouristiqueBundle\Controller\LoginController
+    resource: GuideTouristiqueBundle\Controller\CompteController\UserController
+
+admin:
+    type: rest
+    resource: GuideTouristiqueBundle\Controller\CompteController\AdminController
 #    acme.demo.example:
 #        class:     Acme\DemoBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

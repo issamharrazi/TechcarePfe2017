@@ -70,7 +70,7 @@ doctrine_mongodb:
         default:
             server: "%mongodb_server%"
             options: {}
-    default_database: Mag_database
+    default_database: Base
     document_managers:
         default:
             auto_mapping: true

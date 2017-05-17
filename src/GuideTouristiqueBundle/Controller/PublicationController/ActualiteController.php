@@ -72,7 +72,7 @@ class ActualiteController extends Controller
     }
 
     /**
-     * @Rest\Get("/getActivatedNews)
+     * @Rest\Get("/getActivatedNews")
      * @return JsonResponse
      */
     public function getActivatedNewsAction()

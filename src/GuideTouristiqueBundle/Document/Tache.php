@@ -35,9 +35,9 @@ class Tache
      */
     protected $etat;
     /**
-     * @MongoDB\ReferenceOne(targetDocument="User", inversedBy="Tache")
+     * @MongoDB\ReferenceOne(targetDocument="Admin")
      */
-    private $user;
+    private $admin;
 
     /**
      * Tache constructor.
@@ -45,11 +45,11 @@ class Tache
      * @param $etat
      * @param $user
      */
-    public function __construct($nom, $description, $etat, $user)
+    public function __construct($nom, $description, $etat, $admin)
     {
         $this->description = $description;
         $this->etat = $etat;
-        $this->user = $user;
+        $this->admin = $admin;
         $this->nom = $nom;
     }
 
@@ -104,17 +104,17 @@ class Tache
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getAdmin()
     {
-        return $this->user;
+        return $this->admin;
     }
 
     /**
      * @param mixed $user
      */
-    public function setUser($user)
+    public function setAdmin($admin)
     {
-        $this->user = $user;
+        $this->admin = $admin;
     }
 
 

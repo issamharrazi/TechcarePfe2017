@@ -1,32 +1,8 @@
-
-app:
-    resource: "@GuideTouristiqueBundle/Controller/DefaultController.php"
+guide_touristique:
+    resource: "@GuideTouristiqueBundle/Controller/"
     type:     annotation
+    prefix:   /
 
-places:
-    type:     rest
-    resource: GuideTouristiqueBundle\Controller\DefaultController
-
-users:
-    type:     rest
-    resource: GuideTouristiqueBundle\Controller\UserController
-Registration:
-    type:     rest
-    resource: GuideTouristiqueBundle\Controller\RegistrationController
-Login:
-    type:     rest
-    resource: GuideTouristiqueBundle\Controller\LoginController
-
-LoginTokenWelcome:
-    type:     rest
-    resource: GuideTouristiqueBundle\Controller\WelcomeController
-Task:
-    type:     rest
-    resource: GuideTouristiqueBundle\Controller\TaskController
 
 fos_user:
      resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-routing_rest:
-    resource: routing_rest.yml
-

@@ -16,15 +16,15 @@ class TacheImpMetier implements TacheIMetier
 
     const CLASSNAMETACHE = 'Tache';
     protected static $idaoImpTache;
-    protected static $metierImpUser;
+    protected static $metierImpAdmin;
     protected static $etatImpMetier;
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\TacheIDao\TacheIdao $idaoImpTache, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\UserIMetier $serviceUserImpMetier, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\TacheIDao\TacheIdao $idaoImpTache, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\AdminIMetier $serviceAdminImpMetier, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
     {
 
         self::$idaoImpTache = $idaoImpTache;
 
-        self::$metierImpUser = $serviceUserImpMetier;
+        self::$metierImpAdmin = $serviceAdminImpMetier;
 
         self::$etatImpMetier = $etatImpMetier;
 
@@ -37,7 +37,7 @@ class TacheImpMetier implements TacheIMetier
         // TODO: Implement addTache() method.
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
-        //   $data['user'] = self::$metierImpUser->addImage($data['image']);
+        $data['admin'] = self::$metierImpAdmin->getAdmin($data['admin']['id']);
 
 
         $tache = self::$idaoImpTache->addTache($data);
@@ -52,7 +52,7 @@ class TacheImpMetier implements TacheIMetier
         $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
 
         // TODO: Implement updateCategorie() method.
-        //  $data['user'] = self::$metierImpImage->updateImage($data['image']);
+        $data['admin'] = self::$metierImpAdmin->updateAdmin($data['admin']);
 
         $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $data['id']);
         return self::$idaoImpTache->updateTache($tache, $data);
@@ -63,7 +63,7 @@ class TacheImpMetier implements TacheIMetier
     {
         // TODO: Implement deleteTache() method.
         $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $id);
-        // self::$metierImpUser->deleteImage($categorie->getImage()->getId());
+        self::$metierImpAdmin->deleteAdmin($tache->getAdmin()->getId());
 
 
         self::$idaoImpTache->delete($tache);

@@ -139,6 +139,16 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\TacheImpDao\TacheImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.user.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\UserImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.admin.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\AdminImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+
 
 
 #////////////////////////////////////////////ImpMetier////////////////////////////////////////////////////////////
@@ -173,6 +183,18 @@ services:
     s.categorie.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PackImpMetier\CategorieImpMetier
               arguments:  ['@s.categorie.impdao','@s.image.impmetier','@s.etat.impmetier']
+
+    s.tache.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\TacheImpMetier\TacheImpMetier
+              arguments:  ['@s.tache.impdao','@s.admin.impmetier','@s.etat.impmetier']
+
+    s.user.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\UserImpMetier
+              arguments:  ['@s.user.impdao','@security.password_encoder','@s.etat.impmetier']
+
+    s.admin.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\AdminImpMetier
+              arguments:  ['@s.admin.impdao','@security.password_encoder','@s.etat.impmetier']
 
 
     s.langue.impmetier:

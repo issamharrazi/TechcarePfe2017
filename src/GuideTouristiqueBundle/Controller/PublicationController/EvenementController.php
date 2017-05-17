@@ -72,7 +72,7 @@ class EvenementController extends Controller
     }
 
     /**
-     * @Rest\Get("/getActivatedEvents)
+     * @Rest\Get("/getActivatedEvents")
      * @return JsonResponse
      */
     public function getActivatedEvenstAction()

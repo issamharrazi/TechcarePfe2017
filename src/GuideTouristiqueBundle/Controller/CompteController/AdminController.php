@@ -1,26 +1,38 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: issam
+ * Date: 16/05/2017
+ * Time: 15:23
+ */
 
-namespace GuideTouristiqueBundle\Controller;
+namespace GuideTouristiqueBundle\Controller\CompteController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
+use GuideTouristiqueBundle\Document\User;
+use GuideTouristiqueBundle\services\Serialiser;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class RegistrationController extends BaseController
-{
-    use \GuideTouristiqueBundle\Helper\ControllerHelper;
 
+class AdminController extends Controller
+{
+
+
+    const SERVICENAME = 's.admin.impmetier';
 
     /**
-     * @Rest\Post("/registration")
+     * @Rest\Post("/addAdmin")
      */
-    public function registerAction(Request $request)
+    public function addAdminAction(Request $request)
     {
+        $data = json_decode($request->getContent(), true);
+
         /** @var \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var \FOS\UserBundle\Model\UserManagerInterface */
@@ -35,18 +47,13 @@ class RegistrationController extends BaseController
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $user->setUsername($request->get('username'));
-        $user->setPlainPassword($request->get('plainPassword'));
-        $user->setPrenom($request->get('prenom'));
-        $user->setEmail($request->get('email'));
-        $user->setNumTel($request->get('numTel'));
-        $user->setRoles(array($request->get('role')));
-        $user->setEnabled(true);
-        $dm->persist($user);
-        $dm->flush();
 
-        return new Response($this->serialize('User created.'), Response::HTTP_CREATED);
+
+        $serviceAdmin = $this->get(self::SERVICENAME);
+        $admin = $serviceAdmin->addAdmin($data);
+
+
+        return new Response(Serialiser::serializer('Admin created.'), Response::HTTP_CREATED);
     }
 
 
@@ -63,5 +70,6 @@ class RegistrationController extends BaseController
 
         $form->submit($data);
     }
+
 
 }

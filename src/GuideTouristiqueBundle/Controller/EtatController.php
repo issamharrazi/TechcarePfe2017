@@ -101,12 +101,11 @@ class EtatController extends Controller
 
 
     /**
-     * @Route("/")
+     * @Route("/etat")
      */
     public function indexAction()
     {
 
-        $id = "3";
         //  $serviceEtat = $this->get('s.etat.impmetier');
 
         // $serviceEtat->deleteEtat($id);

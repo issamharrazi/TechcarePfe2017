@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class Responsible
+class Responsable
 {
     /**
      * @MongoDB\Id(strategy="auto")
@@ -42,10 +42,25 @@ class Responsible
     protected $email;
 
 
+
     /**
-     * Get id
-     *
-     * @return id $id
+     * Responsable constructor.
+     * @param $nom
+     * @param $prenom
+     * @param $numTel
+     * @param $email
+     * @param $fax
+     */
+    public function __construct($nom, $prenom, $numTel, $email)
+    {
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->numTel = $numTel;
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed
      */
     public function getId()
     {
@@ -53,9 +68,15 @@ class Responsible
     }
 
     /**
-     * Get nom
-     *
-     * @return string $nom
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
      */
     public function getNom()
     {
@@ -63,21 +84,15 @@ class Responsible
     }
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return $this
+     * @param mixed $nom
      */
     public function setNom($nom)
     {
         $this->nom = $nom;
-        return $this;
     }
 
     /**
-     * Get prenom
-     *
-     * @return string $prenom
+     * @return mixed
      */
     public function getPrenom()
     {
@@ -85,21 +100,15 @@ class Responsible
     }
 
     /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return $this
+     * @param mixed $prenom
      */
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
-        return $this;
     }
 
     /**
-     * Get numTel
-     *
-     * @return integer $numTel
+     * @return mixed
      */
     public function getNumTel()
     {
@@ -107,21 +116,15 @@ class Responsible
     }
 
     /**
-     * Set numTel
-     *
-     * @param integer $numTel
-     * @return $this
+     * @param mixed $numTel
      */
     public function setNumTel($numTel)
     {
         $this->numTel = $numTel;
-        return $this;
     }
 
     /**
-     * Get email
-     *
-     * @return string $email
+     * @return mixed
      */
     public function getEmail()
     {
@@ -129,14 +132,12 @@ class Responsible
     }
 
     /**
-     * Set email
-     *
-     * @param string $email
-     * @return $this
+     * @param mixed $email
      */
     public function setEmail($email)
     {
         $this->email = $email;
-        return $this;
     }
+
+
 }

@@ -94,12 +94,12 @@ class DeviseController extends Controller
 
 
     /**
-     * @Rest\Get("/getCurrency/{idDevise}")
+     * @Rest\Get("/getCurrency/{idCurrency}")
      */
     public function getDeviseAction(Request $request)
     {
         $serviceDevise = $this->get(self::SERVICENAME);
-        $devise = $serviceDevise->getDevise($request->get('idDevise'));
+        $devise = $serviceDevise->getDevise($request->get('idCurrency'));
 
         $deviseJson = Serialiser::serializer($devise);
         return new JsonResponse($deviseJson);
@@ -109,12 +109,12 @@ class DeviseController extends Controller
 
 
     /**
-     * @Rest\Delete("/deleteCurrency/{idDevise}")
+     * @Rest\Delete("/deleteCurrency/{idCurrency}")
      */
     public function deleteDeviseAction(Request $request)
     {
         $serviceDevise = $this->get(self::SERVICENAME);
-        $serviceDevise->deleteDevise($request->get('idDevise'));
+        $serviceDevise->deleteDevise($request->get('idCurrency'));
 
 
         return new JsonResponse('success');
