@@ -1,6 +1,14 @@
 client:
     type: rest
-    resource: GuideTouristiqueBundle\Controller\CompteController\UserController
+    resource: GuideTouristiqueBundle\Controller\CompteController\ClientController
+
+client_vente:
+    type: rest
+    resource: GuideTouristiqueBundle\Controller\CompteController\ClientVenteController
+
+client_achat:
+    type: rest
+    resource: GuideTouristiqueBundle\Controller\CompteController\ClientAchatController
 
 admin:
     type: rest

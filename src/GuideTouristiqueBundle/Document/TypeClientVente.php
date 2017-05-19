@@ -20,6 +20,38 @@ class TypeClientVente
      */
     protected $id;
 
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     */
+    private $etat;
+
+    /**
+     * TypeClientVente constructor.
+     * @param $etat
+     */
+    public function __construct($etat)
+    {
+        $this->etat = $etat;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param mixed $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
+
     /**
      * @return mixed
      */

@@ -84,10 +84,9 @@ class CategorieImpMetier implements CategorieIMetier
     public function getCategorie($id)
     {
         // TODO: Implement getCategorie() method.
-        $categorie = self::$idaoImpCategorie->findById(self::CLASSNAMECATEGORIE, $id);
+        return self::$idaoImpCategorie->findById(self::CLASSNAMECATEGORIE, $id);
 
 
-        return $categorie;
     }
 
 
@@ -102,7 +101,6 @@ class CategorieImpMetier implements CategorieIMetier
     public function findAllActivatedCategories()
     {
         // TODO: Implement getDevise() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
 
         $categories = static::$idaoImpCategorie->findAllActivated(self::CLASSNAMECATEGORIE);

@@ -31,10 +31,6 @@ class ClientVente extends Client
      */
     protected $numtel;
 
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    protected $mail;
 
     /**
      * @MongoDB\Field(type="string")
@@ -45,10 +41,6 @@ class ClientVente extends Client
      * @MongoDB\Field(type="int")
      */
     protected $nombrevisite;
-
-    /**
-     * @return mixed
-     */
 
 
     /**
@@ -71,6 +63,12 @@ class ClientVente extends Client
      */
     private $adresse;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->responsables = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->clientsachat = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * Get nometablissement
      *
@@ -115,27 +113,7 @@ class ClientVente extends Client
         return $this;
     }
 
-    /**
-     * Get mail
-     *
-     * @return string $mail
-     */
-    public function getMail()
-    {
-        return $this->mail;
-    }
 
-    /**
-     * Set mail
-     *
-     * @param string $mail
-     * @return $this
-     */
-    public function setMail($mail)
-    {
-        $this->mail = $mail;
-        return $this;
-    }
 
     /**
      * Get fax
@@ -214,9 +192,7 @@ class ClientVente extends Client
     }
 
     /**
-     * Remove clientsachat
      *
-     * @param \GuideTouristiqueBundle\Document\ClientAchat $clientsachat
      */
     public function removeClientsachat(\GuideTouristiqueBundle\Document\ClientAchat $clientsachat)
     {
@@ -226,7 +202,6 @@ class ClientVente extends Client
     /**
      * Get clientsachat
      *
-     * @return \Doctrine\Common\Collections\Collection $clientsachat
      */
     public function getClientsachat()
     {
@@ -246,12 +221,21 @@ class ClientVente extends Client
     /**
      * Remove responsable
      *
-     * @param \GuideTouristiqueBundle\Document\Responsable $responsable
      */
     public function removeResponsable(\GuideTouristiqueBundle\Document\Responsable $responsable)
     {
         $this->responsables->removeElement($responsable);
     }
+
+    /**
+     * clear responsable
+     *
+     */
+    public function clearResponsable()
+    {
+        $this->responsables->clear();
+    }
+
 
     /**
      * Get responsables

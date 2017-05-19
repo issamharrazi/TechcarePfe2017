@@ -59,6 +59,52 @@ class GenericImplDao implements GenericIDao
     }
 
 
+    public function findAllActivated($class)
+    {
+        // TODO: Implement findById() method.
+
+
+        try {
+
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                ->findBy(array('etat.num' => 1));
+
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+
+
+    }
+
+
+    public function findAllByLang($class, $lang)
+    {
+        // TODO: Implement findAllByLang() method.
+        try {
+
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                ->findBy(array('langue.nom' => $lang));
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function findAllActivatedByLang($class, $lang)
+    {
+        // TODO: Implement findAllActivatedByLang() method.
+        try {
+
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                ->findBy(array('langue.nom' => $lang, 'etat.num' => 1));
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
+
+
     public function findById($class, $id)
     {
         // TODO: Implement findById() method.
@@ -77,21 +123,5 @@ class GenericImplDao implements GenericIDao
 
     }
 
-    public function findAllActivated($class)
-    {
-        // TODO: Implement findById() method.
 
-
-        try {
-
-            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
-                ->findBy(array('etat.id' => 1));
-
-
-        } catch (Exception $e) {
-            echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
-
-
-    }
 }

@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: fara7
+ * User: issam
  * Date: 23/03/2017
  * Time: 12:18
  */
@@ -57,10 +57,10 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             throw new CustomUserMessageAuthenticationException('Invalid Token');
         }
 
-        $username = $data['username'];
+        $email = $data['email'];
 
-        return $this->dm->getRepository('GuideTouristiqueBundle:User')
-            ->findOneBy(['username' => $username]);
+        return $this->dm->getRepository('GuideTouristiqueBundle:')
+            ->findOneBy(['email' => $email]);
 
     }
 

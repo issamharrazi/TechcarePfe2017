@@ -92,7 +92,7 @@ lexik_jwt_authentication:
     public_key_path:  '%jwt_public_key_path%'
     pass_phrase:      '%jwt_key_pass_phrase%'
     token_ttl:        '%jwt_token_ttl%'
-    user_identity_field: username
+    user_identity_field: email
 
         # token encoding/decoding settings
     encoder:

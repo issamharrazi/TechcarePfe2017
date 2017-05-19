@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class ClientAchat
+class ClientAchat extends Client
 {
     /**
      * @MongoDB\Id(strategy="auto")
@@ -23,10 +23,7 @@ class ClientAchat
      * @MongoDB\Field(type="int")
      */
     protected $numtel;
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    protected $mail;
+
     /**
      * @MongoDB\Field(type="string")
      */
@@ -47,6 +44,8 @@ class ClientAchat
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->clientsvente = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

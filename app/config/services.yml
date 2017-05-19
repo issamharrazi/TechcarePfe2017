@@ -139,13 +139,36 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\TacheImpDao\TacheImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
-    s.user.impdao:
-        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\UserImpDao
-        arguments: ['@doctrine.odm.mongodb.document_manager']
-
     s.admin.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\AdminImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.adresse.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\AdresseImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.client_vente.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ClientVenteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.client_achat.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ClientAchatImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.client.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ClientImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.type_client_vente.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\TypeClientVenteImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.responsable.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ResponsableImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
 
 
 
@@ -188,9 +211,28 @@ services:
               class: GuideTouristiqueBundle\Metier\ImpMetier\TacheImpMetier\TacheImpMetier
               arguments:  ['@s.tache.impdao','@s.admin.impmetier','@s.etat.impmetier']
 
-    s.user.impmetier:
-              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\UserImpMetier
-              arguments:  ['@s.user.impdao','@security.password_encoder','@s.etat.impmetier']
+    s.type_client_vente.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientVenteTypeImpMetier
+              arguments:  ['@s.type_client_vente.impdao','@s.etat.impmetier','@s.langue.impmetier']
+
+    s.responsable.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ResponsableImpMetier
+              arguments:  ['@s.responsable.impdao']
+
+
+    s.client_vente.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientVenteImpMetier
+              arguments:  ['@s.client_vente.impdao','@s.etat.impmetier','@s.type_client_vente.impmetier','@s.responsable.impmetier','@s.adresse.impmetier','@s.image.impmetier']
+
+    s.client_achat.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientAchatImpMetier
+              arguments:  ['@s.client_achat.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
+
+    s.client.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientImpMetier
+              arguments:  ['@s.client.impdao','@security.password_encoder','@s.etat.impmetier']
+
+
 
     s.admin.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\AdminImpMetier
@@ -295,3 +337,7 @@ services:
     s.etat.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\EtatImpMetier
               arguments:  ['@s.etat.impdao']
+
+    s.adresse.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\AdresseImpMetier
+              arguments:  ['@s.adresse.impdao']

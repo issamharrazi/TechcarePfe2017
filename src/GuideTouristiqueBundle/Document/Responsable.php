@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: fara7
+ * User: issam
  * Date: 16/04/2017
  * Time: 21:02
  */
@@ -33,7 +33,7 @@ class Responsable
     /**
      * @MongoDB\Field(type="integer")
      */
-    protected $numTel;
+    protected $numtel;
 
 
     /**
@@ -51,11 +51,11 @@ class Responsable
      * @param $email
      * @param $fax
      */
-    public function __construct($nom, $prenom, $numTel, $email)
+    public function __construct($nom, $prenom, $numtel, $email)
     {
         $this->nom = $nom;
         $this->prenom = $prenom;
-        $this->numTel = $numTel;
+        $this->numtel = $numtel;
         $this->email = $email;
     }
 
@@ -112,15 +112,15 @@ class Responsable
      */
     public function getNumTel()
     {
-        return $this->numTel;
+        return $this->numtel;
     }
 
     /**
      * @param mixed $numTel
      */
-    public function setNumTel($numTel)
+    public function setNumTel($numtel)
     {
-        $this->numTel = $numTel;
+        $this->numtel = $numtel;
     }
 
     /**

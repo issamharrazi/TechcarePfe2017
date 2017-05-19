@@ -55,7 +55,8 @@ security:
 
     access_control:
              - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-             - { path: ^/addUser, role: IS_AUTHENTICATED_ANONYMOUSLY }
+             - { path: ^/addClientAchat, role: IS_AUTHENTICATED_ANONYMOUSLY }
+             - { path: ^/addClientVente, role: IS_AUTHENTICATED_ANONYMOUSLY }
              - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
              - { path: ^/admin/, role: ROLE_ADMIN }
 

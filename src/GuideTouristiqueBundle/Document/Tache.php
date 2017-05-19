@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: fara7
+ * User: issam
  * Date: 12/04/2017
  * Time: 01:32
  */
@@ -43,7 +43,6 @@ class Tache
      * Tache constructor.
      * @param $description
      * @param $etat
-     * @param $user
      */
     public function __construct($nom, $description, $etat, $admin)
     {
@@ -109,9 +108,7 @@ class Tache
         return $this->admin;
     }
 
-    /**
-     * @param mixed $user
-     */
+
     public function setAdmin($admin)
     {
         $this->admin = $admin;

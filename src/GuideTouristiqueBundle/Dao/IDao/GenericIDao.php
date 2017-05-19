@@ -13,11 +13,17 @@ interface GenericIDao
 {
     public function delete($document);
 
-    public function findAll($class);
 
     public function findById($class, $id);
 
+
+    ///////////////find all////////
+    public function findAll($class);
+
+    public function findAllByLang($class, $lang);
     public function findAllActivated($class);
+
+    public function findAllActivatedByLang($class, $lang);
 
 
 }
