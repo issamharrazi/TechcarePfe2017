@@ -60,4 +60,6 @@ abstract class Offre
      * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     protected $etat;
+
+
 }

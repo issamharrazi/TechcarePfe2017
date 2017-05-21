@@ -11,11 +11,13 @@ namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientAchatIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
+use GuideTouristiqueBundle\Document\Client;
 use GuideTouristiqueBundle\Document\ClientAchat;
 
 
 class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao
 {
+
 
 
     public function addClientVenteAuClientAchat($clientVente, $clientAchat)
@@ -38,14 +40,18 @@ class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao
 
     public function RegisterClientAchat($data)
     {
+
         // TODO: Implement RegisterClientAchat() method.
-        $clientAchat = new ClientAchat();
+        $clientAchat = new Client();
+        // $clientAchat->setUsername($data['username']);
         $clientAchat->setEmail($data['email']);
+        // $clientAchat->setPassword($data['password']);
+
         $clientAchat->setPlainPassword($data['password']);
         $clientAchat->setEnabled(true);
-        $clientAchat->setNom($data['nom']);
-        $clientAchat->setPrenom($data['prenom']);
-        $clientAchat->setChefequipe(null);
+        // $clientAchat->setNom($data['nom']);
+        //  $clientAchat->setPrenom($data['prenom']);
+        // $clientAchat->setChefequipe(null);
 
 
         $clientAchat->addRole('ROLE_CLIENT_VENTE');
@@ -54,8 +60,10 @@ class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao
         try {
 
 
-            $clientAchat = static::$documentManager->merge($clientAchat);
+            static::$documentManager->persist($clientAchat);
+
             static::$documentManager->flush();
+
 
         } catch (Exception $e) {
             echo 'Exception reçue : ', $e->getMessage(), "\n";
@@ -63,10 +71,9 @@ class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao
         return $clientAchat;
     }
 
-    public function UpdateClientAchat($document, $data)
+    public function UpdateClientAchat($clientAchat, $data)
     {
         // TODO: Implement UpdateClientAchat() method.
-        $clientAchat = new ClientAchat();
         $clientAchat->setEmail($data['email']);
         $clientAchat->setPlainPassword($data['password']);
         $clientAchat->setNom($data['nom']);
@@ -79,7 +86,6 @@ class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao
         // $clientAchat->setChefequipe($data['chefequipe']);
 
 
-        $clientAchat->addRole('ROLE_CLIENT_ACHAT');
         $clientAchat->setEtat($data['etat']);
         $clientAchat->setEtattemporaire($data['etattemporaire']);
         try {
@@ -97,7 +103,7 @@ class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao
     public function UpdateChefEquipeClientAchat($clientAchat, $chefEquipe)
     {
         // TODO: Implement UpdateChefEquipeClientAchat() method.
-        $clientAchat->setChefequipe($chefEquipe);
+        //  $clientAchat->setChefequipe($chefEquipe);
 
 
         try {

@@ -13,7 +13,5 @@ use GuideTouristiqueBundle\Dao\IDao\GenericIDao;
 
 interface ClientIdao extends GenericIDao
 {
-    public function FindClientByMail($mail);
-
 
 }

@@ -3,11 +3,12 @@
 security:
 
     encoders:
+            GuideTouristiqueBundle\Document\Client : bcrypt
             FOS\UserBundle\Model\UserInterface: bcrypt
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     role_hierarchy:
-                ROLE_ADMIN:       ROLE_ADMIN
-                ROLE_SUPER_ADMIN: ROLE_ADMIN
+                ROLE_ADMIN:       ROLE_CHEFEQUIPE
+                ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
                 ROLE_AGENT: ROLE_AGENT
                 ROLE_CLIENT_VENTE: ROLE_CLIENT_VENTE
                 ROLE_CLIENT_ACHAT: ROLE_CLIENT_ACHAT

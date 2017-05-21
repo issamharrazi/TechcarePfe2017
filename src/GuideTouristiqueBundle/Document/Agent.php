@@ -14,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class Agent
+class Agent extends Admin
 {
     /**
      * @MongoDB\Id(strategy="auto")
@@ -39,6 +39,8 @@ class Agent
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->tachesaffectees = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

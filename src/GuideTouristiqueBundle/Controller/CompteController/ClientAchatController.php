@@ -49,10 +49,14 @@ class ClientAchatController extends Controller
 
 
         $serviceClientAchat = $this->get(self::SERVICENAME);
+
         $ClientAchat = $serviceClientAchat->addClientAchat($data);
+        if ($ClientAchat)
+            return new Response(Serialiser::serializer('Client Achat created.'), Response::HTTP_CREATED);
+        else
+            return new Response(Serialiser::serializer('Client Achat existe.'), Response::HTTP_EXPECTATION_FAILED);
 
 
-        return new Response(Serialiser::serializer('Client Achat created.'), Response::HTTP_CREATED);
     }
 
     /**

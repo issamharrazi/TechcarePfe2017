@@ -11,6 +11,7 @@ namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientVenteIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
+use GuideTouristiqueBundle\Document\Client;
 use GuideTouristiqueBundle\Document\ClientVente;
 
 class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
@@ -20,13 +21,14 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
     public function RegisterClientVente($data)
     {
         // TODO: Implement RegisterClientVente() method.
-        $clientVente = new ClientVente();
+        $clientVente = new Client();
+        //$clientVente->setUsername($data['email']);
         $clientVente->setEmail($data['email']);
         $clientVente->setPlainPassword($data['password']);
         $clientVente->setEnabled(true);
-        $clientVente->setNometablissement($data['nometablissement']);
-        $clientVente->setTypetrad($data['typetrad']);
-        $clientVente->setChefequipe(null);
+        //  $clientVente->setNometablissement($data['nometablissement']);
+        // $clientVente->setTypetrad($data['typetrad']);
+        //  $clientVente->setChefequipe(null);
 
 
         $clientVente->addRole('ROLE_CLIENT_VENTE');
@@ -35,7 +37,7 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
         try {
 
 
-            $clientVente = static::$documentManager->merge($clientVente);
+            static::$documentManager->persist($clientVente);
             static::$documentManager->flush();
 
         } catch (Exception $e) {
@@ -51,7 +53,7 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
         $clientVente->setEmail($data['email']);
         $clientVente->setPlainPassword($data['password']);
         $clientVente->setNometablissement($data['nometablissement']);
-        $clientVente->setTypetrad($data['typetrad']);
+        // $clientVente->setTypetrad($data['typetrad']);
 
         $clientVente->setAdresse($data['adresse']);
         $clientVente->setImage($data['image']);

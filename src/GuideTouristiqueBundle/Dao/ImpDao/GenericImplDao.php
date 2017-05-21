@@ -123,5 +123,19 @@ class GenericImplDao implements GenericIDao
 
     }
 
+    public function FindByMail($mail, $class)
+    {
+        // TODO: Implement FindClientByMail() method.
+        try {
+
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                ->findOneBy(['email' => $mail, 'etat.num' => 1]);
+
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
+
 
 }

@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class ChefEquipe
+class ChefEquipe extends Admin
 {
     /**
      * @MongoDB\Id(strategy="auto")
@@ -23,16 +23,13 @@ class ChefEquipe
      * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     protected $etat;
+
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
-     */
-    protected $etattemporaire;
-    /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ClientAchat")
+     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Client")
      */
     private $clientsachat = array();
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ClientVente")
+     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Client")
      */
     private $clientsvente = array();
     /**
@@ -48,11 +45,11 @@ class ChefEquipe
      */
     private $agents = array();
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ClientAchat")
+     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Client")
      */
     private $clientsachattemporaires = array();
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ClientVente")
+     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Client")
      */
     private $clientsventetemporaires = array();
     /**
@@ -90,9 +87,9 @@ class ChefEquipe
     /**
      * Add clientsachat
      *
-     * @param \GuideTouristiqueBundle\Document\ClientAchat $clientsachat
+     * @param \GuideTouristiqueBundle\Document\Client $clientsachat
      */
-    public function addClientsachat(\GuideTouristiqueBundle\Document\ClientAchat $clientsachat)
+    public function addClientsachat(\GuideTouristiqueBundle\Document\Client $clientsachat)
     {
         $this->clientsachat[] = $clientsachat;
     }
@@ -100,9 +97,9 @@ class ChefEquipe
     /**
      * Remove clientsachat
      *
-     * @param \GuideTouristiqueBundle\Document\ClientAchat $clientsachat
+     * @param \GuideTouristiqueBundle\Document\Client $clientsachat
      */
-    public function removeClientsachat(\GuideTouristiqueBundle\Document\ClientAchat $clientsachat)
+    public function removeClientsachat(\GuideTouristiqueBundle\Document\Client $clientsachat)
     {
         $this->clientsachat->removeElement($clientsachat);
     }
@@ -120,9 +117,9 @@ class ChefEquipe
     /**
      * Add clientsvente
      *
-     * @param \GuideTouristiqueBundle\Document\ClientVente $clientsvente
+     * @param \GuideTouristiqueBundle\Document\Client $clientsvente
      */
-    public function addClientsvente(\GuideTouristiqueBundle\Document\ClientVente $clientsvente)
+    public function addClientsvente(\GuideTouristiqueBundle\Document\Client $clientsvente)
     {
         $this->clientsvente[] = $clientsvente;
     }
@@ -130,9 +127,9 @@ class ChefEquipe
     /**
      * Remove clientsvente
      *
-     * @param \GuideTouristiqueBundle\Document\ClientVente $clientsvente
+     * @param \GuideTouristiqueBundle\Document\Client $clientsvente
      */
-    public function removeClientsvente(\GuideTouristiqueBundle\Document\ClientVente $clientsvente)
+    public function removeClientsvente(\GuideTouristiqueBundle\Document\Client $clientsvente)
     {
         $this->clientsvente->removeElement($clientsvente);
     }
@@ -240,9 +237,9 @@ class ChefEquipe
     /**
      * Add clientsachattemporaire
      *
-     * @param \GuideTouristiqueBundle\Document\ClientAchat $clientsachattemporaire
+     * @param \GuideTouristiqueBundle\Document\Client $clientsachattemporaire
      */
-    public function addClientsachattemporaire(\GuideTouristiqueBundle\Document\ClientAchat $clientsachattemporaire)
+    public function addClientsachattemporaire(\GuideTouristiqueBundle\Document\Client $clientsachattemporaire)
     {
         $this->clientsachattemporaires[] = $clientsachattemporaire;
     }
@@ -250,9 +247,9 @@ class ChefEquipe
     /**
      * Remove clientsachattemporaire
      *
-     * @param \GuideTouristiqueBundle\Document\ClientAchat $clientsachattemporaire
+     * @param \GuideTouristiqueBundle\Document\Client $clientsachattemporaire
      */
-    public function removeClientsachattemporaire(\GuideTouristiqueBundle\Document\ClientAchat $clientsachattemporaire)
+    public function removeClientsachattemporaire(\GuideTouristiqueBundle\Document\Client $clientsachattemporaire)
     {
         $this->clientsachattemporaires->removeElement($clientsachattemporaire);
     }
@@ -270,9 +267,9 @@ class ChefEquipe
     /**
      * Add clientsventetemporaire
      *
-     * @param \GuideTouristiqueBundle\Document\ClientVente $clientsventetemporaire
+     * @param \GuideTouristiqueBundle\Document\Client $clientsventetemporaire
      */
-    public function addClientsventetemporaire(\GuideTouristiqueBundle\Document\ClientVente $clientsventetemporaire)
+    public function addClientsventetemporaire(\GuideTouristiqueBundle\Document\Client $clientsventetemporaire)
     {
         $this->clientsventetemporaires[] = $clientsventetemporaire;
     }
@@ -280,9 +277,9 @@ class ChefEquipe
     /**
      * Remove clientsventetemporaire
      *
-     * @param \GuideTouristiqueBundle\Document\ClientVente $clientsventetemporaire
+     * @param \GuideTouristiqueBundle\Document\Client $clientsventetemporaire
      */
-    public function removeClientsventetemporaire(\GuideTouristiqueBundle\Document\ClientVente $clientsventetemporaire)
+    public function removeClientsventetemporaire(\GuideTouristiqueBundle\Document\Client $clientsventetemporaire)
     {
         $this->clientsventetemporaires->removeElement($clientsventetemporaire);
     }

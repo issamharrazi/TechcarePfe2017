@@ -170,6 +170,12 @@ services:
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
 
+    s.agent.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\AgentImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+
 
 
 
@@ -227,6 +233,11 @@ services:
     s.client_achat.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientAchatImpMetier
               arguments:  ['@s.client_achat.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
+
+    s.agent.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\AgentImpMetier
+              arguments:  ['@s.agent.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
+
 
     s.client.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientImpMetier

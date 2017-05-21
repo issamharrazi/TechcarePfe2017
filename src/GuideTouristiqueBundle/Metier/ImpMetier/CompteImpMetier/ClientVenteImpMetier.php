@@ -13,7 +13,7 @@ use GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientVenteIMetier;
 class ClientVenteImpMetier implements ClientVenteIMetier
 {
 
-    const CLASSNAMECLIENTVENTE = 'ClientVente';
+    const CLASSNAMECLIENTVENTE = 'Client';
     protected static $idaoImpClientVente;
     protected static $etatImpMetier;
     protected static $typeTradImpMetier;
@@ -23,12 +23,12 @@ class ClientVenteImpMetier implements ClientVenteIMetier
     protected static $clientImpMetier;
 
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientVenteIdao $idaoImpClientVente, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientVenteTypeIMetier $typeTradImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ResponsableIMetier $responsableImpMetier, \GuideTouristiqueBundle\Metier\IMetier\AdresseIMetier $adresseImpMetier, \GuideTouristiqueBundle\Metier\IMetier\ImageIMetier $imageImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientIMetier $clientImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientVenteIdao $idaoImpClientVente, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientVenteTypeIMetier $typeTradImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ResponsableIMetier $responsableImpMetier, \GuideTouristiqueBundle\Metier\IMetier\AdresseIMetier $adresseImpMetier, \GuideTouristiqueBundle\Metier\IMetier\ImageIMetier $imageImpMetier)
     {
 
         self::$idaoImpClientVente = $idaoImpClientVente;
 
-        self::$clientImpMetier = $clientImpMetier;
+        //  self::$clientImpMetier = $clientImpMetier;
 
         self::$etatImpMetier = $etatImpMetier;
         self::$imageImpMetier = $imageImpMetier;
@@ -40,15 +40,17 @@ class ClientVenteImpMetier implements ClientVenteIMetier
     }
 
 
-    public function addClientVente($requestContent)
+    public function addClientVente($data)
     {
         // TODO: Implement addClientVente() method.
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
-        $data['typetrad'] = self::$typeTradImpMetier->getClientVenteType($data['typetrad']['id']);
+        // $data['typetrad'] = self::$typeTradImpMetier->getClientVenteType($data['typetrad']['id']);
+        if (!(self::$idaoImpClientVente->FindByMail($data['email'], self::CLASSNAMECLIENTVENTE))) {
+            $clientVente = self::$idaoImpClientVente->RegisterClientVente($data);
 
-        $clientVente = self::$idaoImpClientVente->RegisterClientVente($data);
-
-        return $clientVente;
+            return $clientVente;
+        } else
+            return null;
     }
 
     public function updateClientVente($data)

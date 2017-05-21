@@ -16,6 +16,9 @@ interface GenericIDao
 
     public function findById($class, $id);
 
+    public function FindByMail($mail, $class);
+
+
 
     ///////////////find all////////
     public function findAll($class);

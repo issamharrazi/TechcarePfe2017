@@ -8,11 +8,10 @@
 
 namespace GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier;
 
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-
 class ClientImpMetier
 {
 
+    const CLASSNAMECLIENT = 'Client';
 
     protected static $idaoImpClient;
     protected static $etatImpMetier;
@@ -34,18 +33,19 @@ class ClientImpMetier
 
     public function loginClient($data)
     {
+        $validPassword = null;
+
         // TODO: Implement loginClientAchat() method.
-        $Client = self::$idaoImpClient->FindClientByMail($data['email']);
+        $Client = self::$idaoImpClient->FindByMail($data['email'], self::CLASSNAMECLIENT);
+        if ($Client)
+            $validPassword = self::$security->isPasswordValid($Client, $data['password']);
 
-        if (!$Client) {
-            // throw $this->createNotFoundException();
+        else
+            return null;
 
-        }
-
-        $validPassword = self::$security->isPasswordValid($data, $data['password']);
 
         if (!$validPassword) {
-            throw new BadCredentialsException();
+            return null;
         }
 
 

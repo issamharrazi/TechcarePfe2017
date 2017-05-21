@@ -13,14 +13,14 @@ use GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientAchatIMetier;
 class ClientAchatImpMetier implements ClientAchatIMetier
 {
 
-    const CLASSNAMECLIENTAchat = 'ClientAchat';
+    const CLASSNAMECLIENTAchat = 'Client';
     protected static $idaoImpClientAchat;
     protected static $etatImpMetier;
     protected static $adresseImpMetier;
     protected static $imageImpMetier;
     protected static $clientImpMetier;
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientAchatIdao $idaoImpClientAchat, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\AdresseIMetier $adresseImpMetier, \GuideTouristiqueBundle\Metier\IMetier\ImageIMetier $imageImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientIMetier $clientImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientAchatIdao $idaoImpClientAchat, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\AdresseIMetier $adresseImpMetier, \GuideTouristiqueBundle\Metier\IMetier\ImageIMetier $imageImpMetier)
     {
 
         self::$idaoImpClientAchat = $idaoImpClientAchat;
@@ -28,7 +28,7 @@ class ClientAchatImpMetier implements ClientAchatIMetier
 
         self::$etatImpMetier = $etatImpMetier;
         self::$imageImpMetier = $imageImpMetier;
-        self::$clientImpMetier = $clientImpMetier;
+        //   self::$clientImpMetier = $clientImpMetier;
         self::$adresseImpMetier = $adresseImpMetier;
 
 
@@ -40,9 +40,14 @@ class ClientAchatImpMetier implements ClientAchatIMetier
         // TODO: Implement addClientAchat() method.
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
-        $ClientAchat = self::$idaoImpClientAchat->RegisterClientAchat($data);
+        if (!(self::$idaoImpClientAchat->FindByMail($data['email'], self::CLASSNAMECLIENTAchat))) {
+            $ClientAchat = self::$idaoImpClientAchat->RegisterClientAchat($data);
+            return $ClientAchat;
 
-        return $ClientAchat;
+        } else
+            return null;
+
+
     }
 
     public function addClientVenteAuClientAchat($clientVente, $clientAchat)

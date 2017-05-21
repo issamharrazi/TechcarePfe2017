@@ -14,6 +14,7 @@ interface ClientAchatIMetier
 
     public function addClientAchat($requestContent);
 
+
     public function addClientVenteAuClientAchat($clientVente, $clientAchat);
 
     public function DesactiveClientAchatTemporairement($clientVente, $data);

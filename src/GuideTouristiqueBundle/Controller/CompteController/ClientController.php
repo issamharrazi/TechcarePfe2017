@@ -10,7 +10,6 @@ namespace GuideTouristiqueBundle\Controller\CompteController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use GuideTouristiqueBundle\Document\Client;
-use GuideTouristiqueBundle\Document\User;
 use GuideTouristiqueBundle\services\Serialiser;
 use GuideTouristiqueBundle\services\SetHeaders;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,7 +22,7 @@ class ClientController extends Controller
     const SERVICENAME = 's.client.impmetier';
 
     /**
-     * @Rest\Post("/loginClient")
+     * @Rest\Post("/login")
      */
     public function loginClientAction(Request $request)
     {
@@ -31,15 +30,19 @@ class ClientController extends Controller
 
         $serviceClient = $this->get(self::SERVICENAME);
         $Client = $serviceClient->loginClient($data);
+        if ($Client == null)
+            $response = new Response(Serialiser::serializer(Response::HTTP_FORBIDDEN));
+        else {
+            $token = $this->getToken($Client);
+            $response = new Response(Serialiser::serializer(['token' => $token, 'role' => $Client->getRoles()]), Response::HTTP_OK);
 
-        $token = $this->getToken($Client);
+
+        }
 
 
-        $response = new Response(Serialiser::serializer(['token' => $token, 'role' => $Client->getRoles()]), Response::HTTP_OK);
 
         return SetHeaders::setBaseHeaders($response);
     }
-
 
     /**
      * Returns token for user.

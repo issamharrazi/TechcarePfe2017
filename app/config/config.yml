@@ -76,8 +76,9 @@ doctrine_mongodb:
             auto_mapping: true
 fos_user:
     db_driver: mongodb # other valid values are 'mongodb' and 'couchdb'
+
     firewall_name: main
-    user_class: GuideTouristiqueBundle\Document\User
+    user_class: GuideTouristiqueBundle\Document\Client
     from_email:
             address: techcare2017@gmail.com
             sender_name: You
@@ -92,7 +93,7 @@ lexik_jwt_authentication:
     public_key_path:  '%jwt_public_key_path%'
     pass_phrase:      '%jwt_key_pass_phrase%'
     token_ttl:        '%jwt_token_ttl%'
-    user_identity_field: email
+    user_identity_field: username
 
         # token encoding/decoding settings
     encoder:

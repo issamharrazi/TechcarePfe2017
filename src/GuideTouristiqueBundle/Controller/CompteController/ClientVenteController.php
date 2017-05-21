@@ -50,9 +50,11 @@ class ClientVenteController extends Controller
 
         $serviceClientVente = $this->get(self::SERVICENAME);
         $ClientVente = $serviceClientVente->addClientVente($data);
+        if ($ClientVente)
+            return new Response(Serialiser::serializer('Client Vente created.'), Response::HTTP_CREATED);
+        else
+            return new Response(Serialiser::serializer('Client Vente existe.'), Response::HTTP_EXPECTATION_FAILED);
 
-
-        return new Response(Serialiser::serializer('Client Vente created.'), Response::HTTP_CREATED);
     }
 
     /**
