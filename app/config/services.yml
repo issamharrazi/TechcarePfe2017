@@ -139,9 +139,6 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\TacheImpDao\TacheImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
-    s.admin.impdao:
-        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\AdminImpDao
-        arguments: ['@doctrine.odm.mongodb.document_manager']
 
     s.adresse.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\AdresseImpDao
@@ -156,8 +153,8 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ClientAchatImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
-    s.client.impdao:
-        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ClientImpDao
+    s.login.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\LoginImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
 
@@ -172,6 +169,10 @@ services:
 
     s.agent.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\AgentImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+    s.chef_equipe.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ChefEquipeImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
 
@@ -215,7 +216,7 @@ services:
 
     s.tache.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\TacheImpMetier\TacheImpMetier
-              arguments:  ['@s.tache.impdao','@s.admin.impmetier','@s.etat.impmetier']
+              arguments:  ['@s.tache.impdao','@s.etat.impmetier']
 
     s.type_client_vente.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientVenteTypeImpMetier
@@ -238,16 +239,16 @@ services:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\AgentImpMetier
               arguments:  ['@s.agent.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
 
-
-    s.client.impmetier:
-              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientImpMetier
-              arguments:  ['@s.client.impdao','@security.password_encoder','@s.etat.impmetier']
-
+    s.chef_equipe.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ChefEquipeImpMetier
+              arguments:  ['@s.chef_equipe.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
 
 
-    s.admin.impmetier:
-              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\AdminImpMetier
-              arguments:  ['@s.admin.impdao','@security.password_encoder','@s.etat.impmetier']
+    s.login.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\LoginImpMetier
+              arguments:  ['@s.login.impdao','@security.password_encoder','@s.etat.impmetier']
+
+
 
 
     s.langue.impmetier:

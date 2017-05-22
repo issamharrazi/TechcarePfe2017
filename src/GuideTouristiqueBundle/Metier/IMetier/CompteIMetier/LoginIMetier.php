@@ -9,9 +9,11 @@
 namespace GuideTouristiqueBundle\Metier\IMetier\CompteIMetier;
 
 
-interface ClientIMetier
+interface LoginIMetier
 {
 
     public function loginClient($requestContent);
+
+    public function loginAdmin($requestContent);
 
 }

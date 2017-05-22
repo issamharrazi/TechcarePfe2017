@@ -12,7 +12,6 @@ use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientAchatIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
 use GuideTouristiqueBundle\Document\Client;
-use GuideTouristiqueBundle\Document\ClientAchat;
 
 
 class ClientAchatImpDao extends GenericImplDao implements ClientAchatIdao

@@ -6,3 +6,7 @@ guide_touristique:
 
 fos_user:
      resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+#mapado_pro_register:
+ #   resource: "@GuideTouristiqueBundle/Resources/config/routing/pro-registration.xml"
+  #  prefix: /pro/register

@@ -14,7 +14,7 @@ use GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\AgentIMetier;
 class AgentImpMetier implements AgentIMetier
 {
 
-    const CLASSNAMEAGENT = 'Agent';
+    const CLASSNAMEAGENT = 'Admin';
     protected static $idaoImpAgent;
     protected static $etatImpMetier;
     protected static $adresseImpMetier;
@@ -34,7 +34,7 @@ class AgentImpMetier implements AgentIMetier
 
     }
 
-    public function addAgent($requestContent)
+    public function addAgent($data)
     {
         // TODO: Implement addAgent() method.
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);

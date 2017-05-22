@@ -19,12 +19,11 @@ class TacheImpMetier implements TacheIMetier
     protected static $metierImpAdmin;
     protected static $etatImpMetier;
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\TacheIDao\TacheIdao $idaoImpTache, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\AdminIMetier $serviceAdminImpMetier, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\TacheIDao\TacheIdao $idaoImpTache, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
     {
 
         self::$idaoImpTache = $idaoImpTache;
 
-        self::$metierImpAdmin = $serviceAdminImpMetier;
 
         self::$etatImpMetier = $etatImpMetier;
 

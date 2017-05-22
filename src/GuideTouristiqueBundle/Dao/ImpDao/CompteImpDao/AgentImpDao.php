@@ -11,6 +11,7 @@ namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\AgentIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
+use GuideTouristiqueBundle\Document\Admin;
 use GuideTouristiqueBundle\Document\Agent;
 use GuideTouristiqueBundle\Document\ClientAchat;
 
@@ -38,7 +39,7 @@ class AgentImpDao extends GenericImplDao implements AgentIdao
 
     public function RegisterAgent($data)
     {
-        $agent = new Agent();
+        $agent = new Admin();
         $agent->setEmail($data['email']);
         $agent->setPlainPassword($data['password']);
         $agent->setEnabled(true);
@@ -66,7 +67,6 @@ class AgentImpDao extends GenericImplDao implements AgentIdao
 
     public function UpdateAgent($agent, $data)
     {
-        $agent = new Agent();
         $agent->setEmail($data['email']);
         $agent->setPlainPassword($data['password']);
         $agent->setNom($data['nom']);

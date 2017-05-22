@@ -8,10 +8,10 @@
 
 namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 
-use GuideTouristiqueBundle\Dao\IDao\CompteIDao\ClientIdao;
+use GuideTouristiqueBundle\Dao\IDao\CompteIDao\LoginIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
 
-class ClientImpDao extends GenericImplDao implements ClientIdao
+class LoginImpDao extends GenericImplDao implements LoginIdao
 {
 
 

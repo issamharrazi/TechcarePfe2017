@@ -11,7 +11,7 @@ namespace GuideTouristiqueBundle\Dao\IDao\CompteIDao;
 use GuideTouristiqueBundle\Dao\IDao\GenericIDao;
 
 
-interface ClientIdao extends GenericIDao
+interface LoginIdao extends GenericIDao
 {
 
 }

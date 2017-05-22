@@ -16,10 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ClientController extends Controller
+class LoginController extends Controller
 {
 
-    const SERVICENAME = 's.client.impmetier';
+    const SERVICENAME = 's.login.impmetier';
 
     /**
      * @Rest\Post("/login")
@@ -73,6 +73,28 @@ class ClientController extends Controller
         $now->add(new \DateInterval('PT' . $tokenTtl . 'S'));
 
         return $now->format('U');
+    }
+
+    /**
+     * @Rest\Post("/loginAdmin")
+     */
+    public function loginAdminAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $serviceAdmin = $this->get(self::SERVICENAME);
+        $Admin = $serviceAdmin->loginAdmin($data);
+        if ($Admin == null)
+            $response = new Response(Serialiser::serializer(Response::HTTP_FORBIDDEN));
+        else {
+            $token = $this->getToken($Admin);
+            $response = new Response(Serialiser::serializer(['token' => $token, 'role' => $Admin->getRoles()]), Response::HTTP_OK);
+
+
+        }
+
+
+        return SetHeaders::setBaseHeaders($response);
     }
 
 
