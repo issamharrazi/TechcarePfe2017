@@ -8,7 +8,6 @@
 
 namespace GuideTouristiqueBundle\Dao\IDao;
 
-
 interface DeviseIdao extends GenericIDao
 {
     public function addDevise($document);

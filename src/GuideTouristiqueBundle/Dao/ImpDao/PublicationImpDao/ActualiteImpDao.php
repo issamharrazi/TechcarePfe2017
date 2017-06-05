@@ -17,22 +17,16 @@ use GuideTouristiqueBundle\Document\Actualite;
 class ActualiteImpDao extends GenericImplDao implements ActualiteIdao
 {
 
-    public function addActualites($data)
+    public function addActualite($data)
     {
         // TODO: Implement addActualites() method.
-        $actualite = new Actualite(date('Y-m-d H:i:s'), $data['etat']);
+        $actualite = new Actualite(date('Y-m-d H:i:s'), $data['nom'], $data['contenu'], date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), $data['etat']);
 
 
         try {
 
-            for ($i = 0; $i < count($data['actualitestraduction']); $i++) {
-                $actualite->addActualitestraduction($data['actualitestraduction'][$i]);
-            }
 
-
-
-
-            $actualite = self::$documentManager->merge($actualite);
+            self::$documentManager->persist($actualite);
             self::$documentManager->flush();
 
         } catch (Exception $e) {
@@ -43,10 +37,15 @@ class ActualiteImpDao extends GenericImplDao implements ActualiteIdao
 
     }
 
-    public function updateActualites($actualite, $data)
+    public function updateActualite($actualite, $data)
     {
+
         // TODO: Implement updateActualites() method.
-        $actualite->setDatepublication($data['datepublication']);
+        $actualite->setNom($data['nom']);
+        $actualite->setContenu($data['contenu']);
+        $actualite->setDatepublication(date('Y-m-d H:i:s'));
+        $actualite->setDateModification(date('Y-m-d H:i:s'));
+        $actualite->setDateAjout($data['dateAjout']);
         $actualite->setEtat($data['etat']);
 
         $actualite = self::$documentManager->merge($actualite);
@@ -56,27 +55,6 @@ class ActualiteImpDao extends GenericImplDao implements ActualiteIdao
         return $actualite;
     }
 
-    public function addCommentaireActualites($actualite, $data)
-    {
-
-        // TODO: Implement addCommentaireActualites() method.
-        $actualite->addCommentaire($data['commentaire']);
-        self::$documentManager->persist($actualite);
-        self::$documentManager->flush();
 
 
-    }
-
-    public function updateCommentaireActualite($actualite, $data)
-    {
-        // TODO: Implement updateCommentaireActualite() method.
-
-        //   $actualite = new Actualite(date('Y-m-d H:i:s'), $data['etat']);
-
-        // $actualite->($data['commentaire']);
-
-
-        $actualite = self::$documentManager->merge($actualite);
-
-    }
 }

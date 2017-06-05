@@ -11,7 +11,6 @@ namespace GuideTouristiqueBundle\Metier\IMetier\CompteIMetier;
 
 interface AgentIMetier
 {
-    public function addAgent($requestContent);
 
     public function addTacheAuAgent($agent, $tache);
 
@@ -29,6 +28,8 @@ interface AgentIMetier
     public function getAllAgents();
 
     public function findAllActivatedAgents();
+
+    public function changeEtatAgent($data);
 
     public function getAgent($id);
 

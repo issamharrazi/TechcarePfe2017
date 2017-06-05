@@ -15,5 +15,8 @@ interface ImageIdao extends GenericIDao
 
     public function updateImage($oldImage, $newImage);
 
+    public function findImageBYMedia($media);
+
+
 
 }

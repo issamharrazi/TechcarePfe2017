@@ -15,11 +15,21 @@ interface TacheIMetier
 
     public function updateTache($requestContent);
 
+    public function uploadRealizedTask($requestContent);
+
+    public function changerEtatTache($requestContent);
+
+    public function changerTemporairementEtatTache($requestContent);
+
+    public function modifierchangementEtatTache($requestContent);
+
     public function deleteTache($id);
 
-    public function getAllTaches();
+    public function getAllTaches($idAdmin);
 
     public function findAllActivatedTaches();
+
+    public function findAllStateChangesByChefEquipe();
 
     public function getTache($id);
 

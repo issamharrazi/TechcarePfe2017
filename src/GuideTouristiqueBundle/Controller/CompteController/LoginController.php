@@ -9,7 +9,6 @@
 namespace GuideTouristiqueBundle\Controller\CompteController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use GuideTouristiqueBundle\Document\Client;
 use GuideTouristiqueBundle\services\Serialiser;
 use GuideTouristiqueBundle\services\SetHeaders;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -47,16 +46,16 @@ class LoginController extends Controller
     /**
      * Returns token for user.
      *
-     * @param Client $client
+     *
      *
      * @return array
      */
-    public function getToken(Client $client)
+    public function getToken($document)
     {
         return $this->container->get('lexik_jwt_authentication.encoder.default')
             ->encode([
-                'id' => $client->getId(),
-                'role' => $client->getRoles(),
+                'id' => $document->getId(),
+                'role' => $document->getRoles(),
                 'exp' => $this->getTokenExpiryDateTime(),
             ]);
     }
@@ -75,27 +74,6 @@ class LoginController extends Controller
         return $now->format('U');
     }
 
-    /**
-     * @Rest\Post("/loginAdmin")
-     */
-    public function loginAdminAction(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $serviceAdmin = $this->get(self::SERVICENAME);
-        $Admin = $serviceAdmin->loginAdmin($data);
-        if ($Admin == null)
-            $response = new Response(Serialiser::serializer(Response::HTTP_FORBIDDEN));
-        else {
-            $token = $this->getToken($Admin);
-            $response = new Response(Serialiser::serializer(['token' => $token, 'role' => $Admin->getRoles()]), Response::HTTP_OK);
-
-
-        }
-
-
-        return SetHeaders::setBaseHeaders($response);
-    }
 
 
 }

@@ -47,7 +47,7 @@ class ActualiteController extends Controller
         $data = json_decode($request->getContent(), true);
 
         $serviceActuality = $this->get(self::SERVICENAME);
-        $Actuality = $serviceActuality->updateActuality($data);
+        $Actuality = $serviceActuality->updateActualite($data);
 
 
         return new JsonResponse('success');
@@ -80,7 +80,7 @@ class ActualiteController extends Controller
 
 
         $serviceActuality = $this->get(self::SERVICENAME);
-        $Actualities = $serviceActuality->findAllActivatedActualites();
+        $Actualities = $serviceActuality->findAllActivatedActualite();
 
         $ActualitiesJson = Serialiser::serializer($Actualities);
 
@@ -95,7 +95,7 @@ class ActualiteController extends Controller
     public function getNewsAction(Request $request)
     {
         $serviceActuality = $this->get(self::SERVICENAME);
-        $Actuality = $serviceActuality->getActualite($request->get('idActuality'));
+        $Actuality = $serviceActuality->getActualite($request->get('idNews'));
 
         $ActualityJson = Serialiser::serializer($Actuality);
         return new JsonResponse($ActualityJson);
@@ -110,7 +110,7 @@ class ActualiteController extends Controller
     public function deleteNewsAction(Request $request)
     {
         $serviceActuality = $this->get(self::SERVICENAME);
-        $serviceActuality->deleteActuality($request->get('idActuality'));
+        $serviceActuality->deleteActualite($request->get('idNews'));
 
 
         return new JsonResponse('success');

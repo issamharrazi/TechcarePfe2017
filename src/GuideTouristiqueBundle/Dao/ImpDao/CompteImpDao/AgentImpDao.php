@@ -11,7 +11,6 @@ namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\AgentIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
-use GuideTouristiqueBundle\Document\Admin;
 use GuideTouristiqueBundle\Document\Agent;
 use GuideTouristiqueBundle\Document\ClientAchat;
 
@@ -37,33 +36,6 @@ class AgentImpDao extends GenericImplDao implements AgentIdao
         }
     }
 
-    public function RegisterAgent($data)
-    {
-        $agent = new Admin();
-        $agent->setEmail($data['email']);
-        $agent->setPlainPassword($data['password']);
-        $agent->setEnabled(true);
-        // $agent->setNom($data['nom']);
-        //  $agent->setPrenom($data['prenom']);
-        // $agent->setChefequipe(null);
-
-
-        $agent->addRole('ROLE_AGENT');
-        $agent->setEtat($data['etat']);
-        $agent->setEtattemporaire($data['etat']);
-        try {
-
-
-            static::$documentManager->persist($agent);
-            static::$documentManager->flush();
-
-        } catch (Exception $e) {
-            echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
-        return $agent;
-
-        // TODO: Implement RegisterAgent() method.
-    }
 
     public function UpdateAgent($agent, $data)
     {
@@ -71,16 +43,24 @@ class AgentImpDao extends GenericImplDao implements AgentIdao
         $agent->setPlainPassword($data['password']);
         $agent->setNom($data['nom']);
         $agent->setPrenom($data['prenom']);
-        $agent->setImage($data['image']);
+        if (isset($data['image']))
+            $agent->setImage($data['image']);
+        if (isset($data['imageCover']))
+            $agent->setImageCover($data['imageCover']);
+        $agent->setUsername($data['username']);
+        $agent->setSexe($data['sexe']);
+        $agent->setAboutme($data['aboutme']);
+        //$chefEquipe->setSkills();
         $agent->setNumtel($data['numtel']);
-        $agent->setAdresse($data['adresse']);
+        if (isset($data['adresse']))
+            $agent->setAdresse($data['adresse']);
 
 
         // $clientAchat->setChefequipe($data['chefequipe']);
 
-
-        $agent->setEtat($data['etat']);
-        $agent->setEtattemporaire($data['etattemporaire']);
+        /*
+                if(isset($data['etattemporaire']))
+                    $agent->setEtattemporaire($data['etattemporaire']);*/
         try {
 
 

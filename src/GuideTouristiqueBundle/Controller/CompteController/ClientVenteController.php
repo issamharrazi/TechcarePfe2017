@@ -70,7 +70,6 @@ class ClientVenteController extends Controller
         $serviceClientVente = $this->get(self::SERVICENAME);
         $ClientVente = $serviceClientVente->updateClientVente($data);
 
-
         return new JsonResponse('success');
     }
 

@@ -9,6 +9,7 @@
 namespace GuideTouristiqueBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use GuideTouristiqueBundle\Document\Media;
 use GuideTouristiqueBundle\services\Serialiser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,6 +40,7 @@ class DeviseController extends Controller
     }
 
 
+
     /**
      * @Rest\Put("/updateCurrency")
      * @param Request $request
@@ -53,8 +55,10 @@ class DeviseController extends Controller
         $devise = $serviceDevise->updateDevise($data);
 
 
+
         return new JsonResponse('success');
     }
+
 
 
     /**
@@ -94,12 +98,12 @@ class DeviseController extends Controller
 
 
     /**
-     * @Rest\Get("/getCurrency/{idCurrency}")
+     * @Rest\Get("/getCurrency/{idDevise}")
      */
     public function getDeviseAction(Request $request)
     {
         $serviceDevise = $this->get(self::SERVICENAME);
-        $devise = $serviceDevise->getDevise($request->get('idCurrency'));
+        $devise = $serviceDevise->getDevise($request->get('idDevise'));
 
         $deviseJson = Serialiser::serializer($devise);
         return new JsonResponse($deviseJson);
@@ -109,12 +113,12 @@ class DeviseController extends Controller
 
 
     /**
-     * @Rest\Delete("/deleteCurrency/{idCurrency}")
+     * @Rest\Delete("/deleteCurrency/{idDevise}")
      */
-    public function deleteDeviseAction(Request $request)
+    public function deleteDevise(Request $request)
     {
         $serviceDevise = $this->get(self::SERVICENAME);
-        $serviceDevise->deleteDevise($request->get('idCurrency'));
+        $serviceDevise->deleteDevise($request->get('idDevise'));
 
 
         return new JsonResponse('success');

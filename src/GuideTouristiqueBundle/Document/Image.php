@@ -14,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-class Image extends Media
+class Image extends File
 {
     /**
      * @MongoDB\Id(strategy="increment")

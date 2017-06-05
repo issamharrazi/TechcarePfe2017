@@ -59,4 +59,16 @@ class ImageImpDao extends GenericImplDao implements ImageIdao
     }
 
 
+    public function findImageBYMedia($media)
+    {
+        // TODO: Implement findImageBYMedia() method.
+        try {
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:Image')
+                ->findOneBy(['media' => $media]);
+
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
 }

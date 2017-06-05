@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-class Video extends Media
+class Video extends File
 {
 
     /**

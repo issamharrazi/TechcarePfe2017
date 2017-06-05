@@ -9,15 +9,12 @@
 namespace GuideTouristiqueBundle\Controller\CompteController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\FOSUserEvents;
 use GuideTouristiqueBundle\Document\User;
 use GuideTouristiqueBundle\services\Serialiser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 
@@ -25,40 +22,6 @@ class AgentController extends Controller
 {
     const SERVICENAME = 's.agent.impmetier';
 
-
-    /**
-     * @Rest\Post("/addAgent")
-     */
-    public function addAgentAction(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        /** @var \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.registration.form.factory');
-        /** @var \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->get('fos_user.user_manager');
-        /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-
-        $Agent = $userManager->createUser();
-        $event = new GetResponseUserEvent($Agent, $request);
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
-
-
-        $serviceAgent = $this->get(self::SERVICENAME);
-
-        $Agent = $serviceAgent->addAgent($data);
-        if ($Agent)
-            return new Response(Serialiser::serializer('Agent created.'), Response::HTTP_CREATED);
-        else
-            return new Response(Serialiser::serializer('Agent existe.'), Response::HTTP_EXPECTATION_FAILED);
-
-
-    }
 
     /**
      * @Rest\Put("/updateAgent")
@@ -94,6 +57,23 @@ class AgentController extends Controller
 
     }
 
+    /**
+     * @Rest\Put("/changeStateAgent")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changeStateAgentAction(Request $request)
+    {
+
+        $data = json_decode($request->getContent(), true);
+
+        $serviceAgent = $this->get(self::SERVICENAME);
+        $agent = $serviceAgent->changeEtatAgent($data);
+
+        $agentJson = Serialiser::serializer($agent);
+
+        return new JsonResponse($agentJson);
+    }
     /**
      * @Rest\Get("/getActivatedAgents")
      * @return JsonResponse

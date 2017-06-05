@@ -67,4 +67,11 @@ class ImageImpMetier implements ImageIMetier
     }
 
 
+    public function findExistImage($media)
+    {
+        // TODO: Implement findExistImage() method.
+        $image = static::$imageImpdao->findImageBYMedia($media);
+
+        return $image;
+    }
 }

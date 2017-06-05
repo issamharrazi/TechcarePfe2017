@@ -22,23 +22,23 @@ class Client extends BaseUser
     protected $id;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     protected $etat;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     protected $etattemporaire;
 
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Admin")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Admin")
      */
     protected $chefequipe;
 
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Image")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Image")
      */
     protected $image;
 
@@ -72,9 +72,9 @@ class Client extends BaseUser
      */
     protected $prenom;
     /**
-     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\TypeClientVenteTraduction")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\TypeClientVente")
      */
-    private $typetrad;
+    private $type;
     /**
      * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Client")
      */
@@ -92,10 +92,6 @@ class Client extends BaseUser
      */
     private $clientsvente = array();
 
-
-
-
-
     public function __construct()
     {
         parent::__construct();
@@ -103,6 +99,22 @@ class Client extends BaseUser
         $this->clientsvente = new \Doctrine\Common\Collections\ArrayCollection();
         $this->responsables = new \Doctrine\Common\Collections\ArrayCollection();
         $this->clientsachat = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     /**
@@ -281,27 +293,6 @@ class Client extends BaseUser
         return $this;
     }
 
-    /**
-     * Get typetrad
-     *
-     * @return \GuideTouristiqueBundle\Document\TypeClientVenteTraduction $typetrad
-     */
-    public function getTypetrad()
-    {
-        return $this->typetrad;
-    }
-
-    /**
-     * Set typetrad
-     *
-     * @param \GuideTouristiqueBundle\Document\TypeClientVenteTraduction $typetrad
-     * @return $this
-     */
-    public function setTypetrad(\GuideTouristiqueBundle\Document\TypeClientVenteTraduction $typetrad)
-    {
-        $this->typetrad = $typetrad;
-        return $this;
-    }
 
     /**
      * Add clientsachat

@@ -18,7 +18,7 @@ class Admin extends BaseUser
 {
 
     /**
-     * @MongoDB\Id(strategy="auto")
+     * @MongoDB\Id(strategy="increment")
      */
     protected $id;
 
@@ -30,27 +30,37 @@ class Admin extends BaseUser
     /**
      * @MongoDB\Field(type="string")
      */
-    protected $nom;
-
-
+    protected $sexe;
     /**
-     * @MongoDB\Field(type="integer")
+     * @MongoDB\Field(type="string")
      */
-    protected $numTel;
+    protected $nom;
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $aboutme;
+    /**
+     * @MongoDB\Field(name="skills", type="collection")
+     */
+    protected $skills;
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $numtel;
     /**
      * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Admin")
      */
     protected $chefequipe;
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     protected $etat;
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     protected $etattemporaire;
     /**
-     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Adresse")
+     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Adresse")
      */
     private $adresse;
     /**
@@ -58,11 +68,13 @@ class Admin extends BaseUser
      */
     private $image;
     /**
+     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Image")
+     */
+    private $imageCover;
+    /**
      * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Tache")
      */
     private $tachesaffectees = array();
-
-
     /**
      * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Client")
      */
@@ -75,7 +87,6 @@ class Admin extends BaseUser
      * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Tache")
      */
     private $taches = array();
-
     /**
      * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Admin")
      */
@@ -109,6 +120,112 @@ class Admin extends BaseUser
         $this->clientsventetemporaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->agentstemporaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tachesaffecteestemporaires = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * @param mixed $sexe
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Add skills
+     *
+     * @param
+     */
+    public function addSkills($skill)
+    {
+        $this->skills[] = $skill;
+    }
+
+    /**
+     * Remove tachesaffectee
+     *
+     * @param \skills
+     */
+    public function removeSkills($skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get tachesaffectees
+     *
+     * @return \Doctrine\Common\Collections\Collection $tachesaffectees
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * Set skills
+     *
+     * @param collection $skills
+     * @return $this
+     */
+    public function setSkills($skills)
+    {
+        $this->skills = $skills;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAboutme()
+    {
+        return $this->aboutme;
+    }
+
+    /**
+     * @param mixed $aboutMe
+     */
+    public function setAboutme($aboutme)
+    {
+        $this->aboutme = $aboutme;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageCover()
+    {
+        return $this->imageCover;
+    }
+
+    /**
+     * @param mixed $imageCover
+     */
+    public function setImageCover($imageCover)
+    {
+        $this->imageCover = $imageCover;
     }
 
     /**
@@ -160,9 +277,9 @@ class Admin extends BaseUser
      *
      * @return integer $numTel
      */
-    public function getNumTel()
+    public function getNumtel()
     {
-        return $this->numTel;
+        return $this->numtel;
     }
 
     /**
@@ -171,9 +288,9 @@ class Admin extends BaseUser
      * @param integer $numTel
      * @return $this
      */
-    public function setNumTel($numTel)
+    public function setNumtel($numtel)
     {
-        $this->numTel = $numTel;
+        $this->numtel = $numtel;
         return $this;
     }
 

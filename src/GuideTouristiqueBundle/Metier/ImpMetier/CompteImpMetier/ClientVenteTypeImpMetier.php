@@ -13,99 +13,67 @@ use GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ClientVenteTypeIMetier;
 
 class ClientVenteTypeImpMetier implements ClientVenteTypeIMetier
 {
-    const CLASSNAMECLIENTVENTETYPE = 'ClientVenteType';
-    const CLASSNAMECLIENTVENTETYPETRADUCTION = 'ClientVenteTypeTraduction';
+    const CLASSNAMECLIENTVENTETYPE = 'TypeClientVente';
     protected static $ClientVenteTypeImpdao;
     protected static $etatImpMetier;
-    protected static $langImpMetier;
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\CompteIDao\TypeClientIdao $TypeClientVenteImpdao, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\LangueIMetier $langImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\CompteIDao\TypeClientIdao $TypeClientVenteImpdao, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
     {
 
 
         self::$ClientVenteTypeImpdao = $TypeClientVenteImpdao;
         self::$etatImpMetier = $etatImpMetier;
-        self::$langImpMetier = $langImpMetier;
 
     }
 
-    //get all traductions
-    public function getAllClientVenteType()
-    {
-        // TODO: Implement getAllClientVenteType() method.
 
-        return static::$ClientVenteTypeImpdao->findAll(self::CLASSNAMECLIENTVENTETYPETRADUCTION);
+    public function addClientVenteType($data)
+    {
+        // TODO: Implement addClientVenteType() method.
+        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
+
+        return static::$ClientVenteTypeImpdao->addTypeClientVente($data);
     }
 
-
-    public function getAllClientVenteTypeByLang($nomLang)
+    public function updateClientVenteType($data)
     {
-        // TODO: Implement getAllClientVenteTypeByLang() method.
-        return static::$ClientVenteTypeImpdao->findAllByLang(self::CLASSNAMECLIENTVENTETYPETRADUCTION, $nomLang);
+        // TODO: Implement updateClientVenteType() method.
+        $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
 
-    }
+        $typeClientVente = static::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPE, $data['id']);
 
-    public function getAllActivatedClientVenteTypesByLang($nomLang)
-    {
-        // TODO: Implement getAllActivatedClientVenteTypesByLang() method.
-        return static::$ClientVenteTypeImpdao->findAllActivatedByLang(self::CLASSNAMECLIENTVENTETYPETRADUCTION, $nomLang);
-
-
-    }
-
-    public function getClientVenteType($id)
-    {
-        // TODO: Implement getClientVenteType() method.
-        return self::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPETRADUCTION, $id);
-
+        return static::$ClientVenteTypeImpdao->updateTypeClientVente($typeClientVente, $data);
     }
 
     public function deleteClientVenteType($id)
     {
         // TODO: Implement deleteClientVenteType() method.
-        $ClientVenteType = self::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPETRADUCTION, $id);
-
-
-        self::$ClientVenteTypeImpdao->delete($ClientVenteType);
-
+        $typeClientVente = static::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPE, $id);
+        static::$ClientVenteTypeImpdao->delete($typeClientVente);
     }
 
-    public function addClientVenteType($data)
+    public function getAllClientVenteType()
     {
-        // TODO: Implement addClientVenteType() method.
-        $data['type']['etat'] = self::$etatImpMetier->getEtatByNum(1);
+        // TODO: Implement getAllClientVenteType() method.
+        return static::$ClientVenteTypeImpdao->findAll(self::CLASSNAMECLIENTVENTETYPE);
+    }
 
-        $data['langue'] = self::$langImpMetier->getLangue($data['langue']);
-
-
-        $typeClientVente = self::$ClientVenteTypeImpdao->addTypeClientVente($data);
+    public function getClientVenteType($id)
+    {
+        $typeClientVente = static::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPE, $id);
 
         return $typeClientVente;
-
+        // TODO: Implement getClientVenteType() method.
     }
 
-    public function addClientVenteTypeTraduction($data)
+    public function findAllActivatedClientVenteType()
     {
-        // TODO: Implement addClientVenteTypeTraduction() method.
-        $data['type'] = self::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPE, $data['type']['id']);
-
-        $data['langue'] = self::$langImpMetier->getLangue($data['langue']);
+        // TODO: Implement findAllActivatedClientVenteType() method.
+        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
 
-        $typeClientVenteTrad = self::$ClientVenteTypeImpdao->addTypeClientVenteTraduction($data);
+        $typeClientVentes = static::$ClientVenteTypeImpdao->findAllActivated(self::CLASSNAMECLIENTVENTETYPE);
 
-        return $typeClientVenteTrad;
-    }
-
-    public function updateClientVenteTypeTraduction($data)
-    {
-        // TODO: Implement updateClientVenteTypeTraduction() method.
-        $data['type']['etat'] = self::$etatImpMetier->getEtatByNum($data['type']['etat']['num']);
-
-        // TODO: Implement updateCategorie() method.
-
-        $typeClientVente = self::$ClientVenteTypeImpdao->findById(self::CLASSNAMECLIENTVENTETYPETRADUCTION, $data['id']);
-        return self::$ClientVenteTypeImpdao->updateTypeClientVenteTraduction($typeClientVente, $data);
-
+        return $typeClientVentes;
     }
 }

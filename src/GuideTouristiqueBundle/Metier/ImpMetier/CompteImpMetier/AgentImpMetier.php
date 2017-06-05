@@ -34,21 +34,6 @@ class AgentImpMetier implements AgentIMetier
 
     }
 
-    public function addAgent($data)
-    {
-        // TODO: Implement addAgent() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
-
-
-        if (!(self::$idaoImpAgent->FindByMail($data['email'], self::CLASSNAMEAGENT))) {
-            $agent = self::$idaoImpAgent->RegisterAgent($data);
-            return $agent;
-
-        } else
-            return null;
-
-
-    }
 
     public function addTacheAuAgent($agent, $tache)
     {
@@ -89,15 +74,12 @@ class AgentImpMetier implements AgentIMetier
     public function updateAgent($data)
     {
         // TODO: Implement updateAgent() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
 
-        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+        if (isset($data['adresse']))
+            $data['adresse'] = self::$adresseImpMetier->updateAdresse($data['adresse']);
 
-
-        $data['adresse'] = self::$adresseImpMetier->updateAdresse($data['adresse']);
-
-
-        $data['image'] = self::$imageImpMetier->updateImage($data['image']);
+        if (isset($data['image']))
+            $data['image'] = self::$imageImpMetier->updateImage($data['image']);
 
 
         $agent = self::$idaoImpAgent->findById(self::CLASSNAMEAGENT, $data['id']);
@@ -109,8 +91,10 @@ class AgentImpMetier implements AgentIMetier
     {
         // TODO: Implement deleteAgent() method.
         $agent = self::$idaoImpAgent->findById(self::CLASSNAMEAGENT, $id);
-        self::$adresseImpMetier->deleteAdresse($agent->getAdresse()->getId());
-        self::$imageImpMetier->deleteImage($agent->getImage()->getId());
+        if ($agent->getAdresse())
+            self::$adresseImpMetier->deleteAdresse($agent->getAdresse()->getId());
+        if ($agent->getAdresse())
+            self::$imageImpMetier->deleteImage($agent->getImage()->getId());
 
 
         self::$idaoImpAgent->delete($agent);
@@ -120,17 +104,16 @@ class AgentImpMetier implements AgentIMetier
     public function getAllAgents()
     {
         // TODO: Implement getAllAgents() method.
-        return self::$idaoImpAgent->findAll(self::CLASSNAMEAGENT);
+        return self::$idaoImpAgent->FindAdminByRole('ROLE_AGENT', self::CLASSNAMEAGENT);
 
     }
 
     public function findAllActivatedAgents()
     {
         // TODO: Implement findAllActivatedAgents() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
+        return self::$idaoImpAgent->FindAdminByRole('ROLE_AGENT', self::CLASSNAMEAGENT);
 
-        return static::$idaoImpAgent->findAllActivated(self::CLASSNAMEAGENT);
 
     }
 
@@ -138,6 +121,15 @@ class AgentImpMetier implements AgentIMetier
     {
         // TODO: Implement getAgent() method.
         return self::$idaoImpAgent->findById(self::CLASSNAMEAGENT, $id);
+
+    }
+
+    public function changeEtatAgent($data)
+    {
+        // TODO: Implement changeEtatAgent() method.
+        $etat = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+        $agent = self::$idaoImpAgent->findById(self::CLASSNAMEAGENT, $data['id']);
+        return self::$idaoImpAgent->changeEtatDocument($agent, $etat);
 
     }
 }

@@ -36,33 +36,16 @@ class ChefEquipeImpMetier implements ChefEquipeIMetier
     }
 
 
-    public function addChefEquipe($data)
-    {
-        // TODO: Implement addChefEquipe() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
-
-        if (!(self::$idaoImpChefEquipe->FindByMail($data['email'], self::CLASSNAMECHEFEQUIPE))) {
-            $chefEquipe = self::$idaoImpChefEquipe->RegisterChefEquipe($data);
-            return $chefEquipe;
-
-        } else
-            return null;
-
-
-    }
-
     public function UpdateChefEquipe($data)
     {
         // TODO: Implement UpdateChefEquipe() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
-
-        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
 
 
-        $data['adresse'] = self::$adresseImpMetier->updateAdresse($data['adresse']);
+        if (isset($data['adresse']))
+            $data['adresse'] = self::$adresseImpMetier->updateAdresse($data['adresse']);
 
-
-        $data['image'] = self::$imageImpMetier->updateImage($data['image']);
+        if (isset($data['image']))
+            $data['image'] = self::$imageImpMetier->updateImage($data['image']);
 
 
         $chefEquipe = self::$idaoImpChefEquipe->findById(self::CLASSNAMECHEFEQUIPE, $data['id']);
@@ -145,9 +128,13 @@ class ChefEquipeImpMetier implements ChefEquipeIMetier
     public function deleteChefEquipe($id)
     {
         // TODO: Implement deleteChefEquipe() method.
+
         $ChefEquipe = self::$idaoImpChefEquipe->findById(self::CLASSNAMECHEFEQUIPE, $id);
-        self::$adresseImpMetier->deleteAdresse($ChefEquipe->getAdresse()->getId());
-        self::$imageImpMetier->deleteImage($ChefEquipe->getImage()->getId());
+        if ($ChefEquipe->getAdresse())
+            self::$adresseImpMetier->deleteAdresse($ChefEquipe->getAdresse()->getId());
+
+        if ($ChefEquipe->getImage())
+            self::$imageImpMetier->deleteImage($ChefEquipe->getImage()->getId());
 
 
         self::$idaoImpChefEquipe->delete($ChefEquipe);
@@ -157,7 +144,7 @@ class ChefEquipeImpMetier implements ChefEquipeIMetier
     public function getAllChefsEquipe()
     {
         // TODO: Implement getAllChefsEquipe() method.
-        return self::$idaoImpChefEquipe->findAll(self::CLASSNAMECHEFEQUIPE);
+        return self::$idaoImpChefEquipe->FindAdminByRole('ROLE_CHEFEQUIPE', self::CLASSNAMECHEFEQUIPE);
 
     }
 
@@ -167,7 +154,7 @@ class ChefEquipeImpMetier implements ChefEquipeIMetier
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
 
-        return static::$idaoImpChefEquipe->findAllActivated(self::CLASSNAMECHEFEQUIPE);
+        return static::$idaoImpChefEquipe->FindActivatedAdminByRole('ROLE_CHEFEQUIPE', self::CLASSNAMECHEFEQUIPE);
 
 
     }
@@ -176,6 +163,15 @@ class ChefEquipeImpMetier implements ChefEquipeIMetier
     {
         // TODO: Implement getChefEquipe() method.
         return self::$idaoImpChefEquipe->findById(self::CLASSNAMECHEFEQUIPE, $id);
+
+    }
+
+    public function changeEtatChefEquipe($data)
+    {
+        // TODO: Implement changeEtatChefEquipe() method.
+        $etat = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+        $chefEquipe = self::$idaoImpChefEquipe->findById(self::CLASSNAMECHEFEQUIPE, $data['id']);
+        return self::$idaoImpChefEquipe->changeEtatDocument($chefEquipe, $etat);
 
     }
 }

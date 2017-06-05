@@ -18,7 +18,7 @@ class LangueController extends Controller
 {
 
 
-    const SERVICENAME = 's.language.impmetier';
+    const SERVICENAME = 's.langue.impmetier';
 
     /**
      * @Rest\Post("/addLanguage")
@@ -31,26 +31,45 @@ class LangueController extends Controller
         $data = json_decode($request->getContent(), true);
 
         $serviceLanguage = $this->get(self::SERVICENAME);
-        $Language = $serviceLanguage->addLangue($data);
+        $res = $serviceLanguage->addLangue($data);
 
-        //$devisesJson= Serialiser::serializer($devise);
+        $resJson = Serialiser::serializer($res);
 
-        return new JsonResponse('ok');
+        return new JsonResponse($resJson);
+    }
+
+
+
+    /**
+     * @Rest\Get("/getAllDefaultsLanguages")
+     * @return JsonResponse
+     */
+    public function getAllDefaultLanguagesAction()
+    {
+
+
+        $serviceLanguage = $this->get(self::SERVICENAME);
+        $Languages = $serviceLanguage->getDefaultLangue();
+
+        $LanguagesJson = Serialiser::serializer($Languages);
+
+        return new JsonResponse($LanguagesJson);
+
     }
 
 
     /**
-     * @Rest\Put("/updateLanguage")
+     * @Rest\Put("/updateLanguageTraduction")
      * @param Request $request
      * @return JsonResponse
      */
-    public function updateLanguageAction(Request $request)
+    public function updateLanguageTraductionAction(Request $request)
     {
 
         $data = json_decode($request->getContent(), true);
 
         $serviceLanguage = $this->get(self::SERVICENAME);
-        $Language = $serviceLanguage->updateLangue($data);
+        $serviceLanguage->updateLangueTraduction($data);
 
 
         return new JsonResponse('success');
@@ -99,7 +118,7 @@ class LangueController extends Controller
     public function getLanguageAction(Request $request)
     {
         $serviceLanguage = $this->get(self::SERVICENAME);
-        $Language = $serviceLanguage->getLangue($request->get('idLanguage'));
+        $Language = $serviceLanguage->getTraductionsLangue($request->get('idLanguage'));
 
         $LanguageJson = Serialiser::serializer($Language);
         return new JsonResponse($LanguageJson);

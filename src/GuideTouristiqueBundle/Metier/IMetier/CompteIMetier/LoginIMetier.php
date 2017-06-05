@@ -14,6 +14,5 @@ interface LoginIMetier
 
     public function loginClient($requestContent);
 
-    public function loginAdmin($requestContent);
 
 }

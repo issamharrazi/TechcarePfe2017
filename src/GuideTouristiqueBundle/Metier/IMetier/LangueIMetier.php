@@ -13,16 +13,23 @@ interface LangueIMetier
 {
     public function addLangue($requestContent);
 
+    public function getDefaultLangue();
+
+    public function getTraductionsLangue($id);
+
+
+    public function updateLangueTraduction($requestContent);
+
     public function updateLangue($requestContent);
 
-    public function deleteLangue($id);
+    /*  public function deleteLangue($id);
 
-    public function getAllLangues();
+      public function getAllLangues();
 
-    public function findAllActivatedLangues();
+      public function findAllActivatedLangues();
 
-    public function getLangue($id);
+      public function getLangue($id);
 
-    public function getLangueByNom($nom);
+      public function getLangueByNom($nom);*/
 
 }

@@ -14,12 +14,7 @@ interface EvenementIdao extends GenericIDao
 {
     public function addEvenement($Evenement);
 
-    public function addCommentaireEvenement($Evenement, $data);
 
-    public function updateCommentaireEvenement($Evenement, $data);
-    //   public function deleteCommentaireActualite($actualites);
-    //  public function showCommentairesActualite($actualites);
-    //  public function showCommentaireActualite();
 
     public function updateEvenement($oldEvenement, $newEvenement);
 

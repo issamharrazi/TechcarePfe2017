@@ -17,11 +17,9 @@ class ActualiteImpMetier implements ActualiteIMetier
     const CLASSNAMEACTUALITE = 'Actualite';
     protected static $idaoImpActualite;
     protected static $etatImpMetier;
-    protected static $actualiteTraductionImpMetier;
-    protected static $commentaireImpMetier;
 
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\PublicationIDao\ActualiteIdao $idaoImpActualite, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\PublicationIMetier\ActualiteTraductionIMetier $actualiteTraductionImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CommentaireIMetier $commentaireImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\PublicationIDao\ActualiteIdao $idaoImpActualite, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
     {
 
 
@@ -29,28 +27,17 @@ class ActualiteImpMetier implements ActualiteIMetier
 
 
         self::$etatImpMetier = $etatImpMetier;
-        self::$actualiteTraductionImpMetier = $actualiteTraductionImpMetier;
-        self::$commentaireImpMetier = $commentaireImpMetier;
 
 
     }
 
+
     public function addActualite($data)
     {
         // TODO: Implement addActualite() method.
-
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
-        for ($i = 0; $i < count($data['actualitestraduction']); $i++) {
-
-            $data['actualitestraduction'][$i] = self::$actualiteTraductionImpMetier->addActualiteTraduction($data['actualitestraduction'][$i]);
-        }
-
-
-
-        $actualite = self::$idaoImpActualite->addActualites($data);
-
-        return $actualite;
+        return static::$idaoImpActualite->addActualite($data);
     }
 
     public function updateActualite($data)
@@ -58,69 +45,42 @@ class ActualiteImpMetier implements ActualiteIMetier
         // TODO: Implement updateActualite() method.
         $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
 
-        // TODO: Implement updateCategorie() method.
+        $actualite = static::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $data['id']);
 
-        $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $data['id']);
-        return self::$idaoImpActualite->updateActualites($actualite, $data);
-
+        return static::$idaoImpActualite->updateActualite($actualite, $data);
     }
 
     public function deleteActualite($id)
     {
         // TODO: Implement deleteActualite() method.
-        $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $id);
+        $actualite = static::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $id);
+        static::$idaoImpActualite->delete($actualite);
 
-
-        self::$idaoImpActualite->delete($actualite);
     }
 
     public function getAllActualites()
     {
         // TODO: Implement getAllActualites() method.
-        $actualites = self::$idaoImpActualite->findAll(self::CLASSNAMEACTUALITE);
+        return static::$idaoImpActualite->findAll(self::CLASSNAMEACTUALITE);
 
-
-        return $actualites;
     }
 
     public function getActualite($id)
     {
         // TODO: Implement getActualite() method.
-        $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $id);
-
+        $actualite = static::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $id);
 
         return $actualite;
     }
 
-    public function findAllActivatedActualites()
+    public function findAllActivatedActualite()
     {
-        // TODO: Implement getDevise() method.
+        // TODO: Implement findAllActivatedActualite() method.
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
 
         $actualites = static::$idaoImpActualite->findAllActivated(self::CLASSNAMEACTUALITE);
 
         return $actualites;
-    }
-
-    public function addCommentaireActualite($data)
-    {
-        // TODO: Implement addCommentaireActualite() method.
-        $data['commentaire'] = static::$commentaireImpMetier->addCommentaire($data['commentare']);
-        $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $data['actualite']['id']);
-
-        static::$idaoImpActualite->addCommentaireActualites($actualite, $data);
-
-    }
-
-    public function updateCommentaireActualite($data)
-    {
-        /*   // TODO: Implement updateCommentaireActualite() method.
-           $actualite = self::$idaoImpActualite->findById(self::CLASSNAMEACTUALITE, $data['actualite']['id']);
-
-           $data['commentaire'] = static::$commentaireImpMetier->updateCommentaire($data['commentare']);
-           static::$idaoImpActualite->updateCommentaireActualite($actualite,$data);*/
-
-
     }
 }

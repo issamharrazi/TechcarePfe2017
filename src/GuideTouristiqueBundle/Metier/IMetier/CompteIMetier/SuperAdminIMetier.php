@@ -11,7 +11,6 @@ namespace GuideTouristiqueBundle\Metier\IMetier\CompteIMetier;
 
 interface SuperAdminIMetier
 {
-    public function addSuperAdmin($requestContent);
 
 
     public function updateSuperAdmin($requestContent);
@@ -23,6 +22,8 @@ interface SuperAdminIMetier
     public function findAllActivatedSuperAdmins();
 
     public function getSuperAdmin($id);
+
+    public function getSuperAdminByMail($mail);
 
 
 }

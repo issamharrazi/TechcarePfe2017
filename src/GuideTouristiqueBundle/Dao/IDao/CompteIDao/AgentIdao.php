@@ -17,8 +17,6 @@ interface AgentIdao extends GenericIDao
     public function removeTacheAuAgent($tache, $agent);
 
 
-    public function RegisterAgent($document);
-
     public function UpdateAgent($document, $data);
 
     public function UpdateChefEquipeAgent($document, $chefEquipe);

@@ -16,10 +16,15 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class TypeClientVente
 {
     /**
-     * @MongoDB\Id(strategy="auto")
+     * @MongoDB\Id(strategy="increment")
      */
     protected $id;
 
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $nom;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
@@ -30,10 +35,29 @@ class TypeClientVente
      * TypeClientVente constructor.
      * @param $etat
      */
-    public function __construct($etat)
+    public function __construct($nom, $etat)
     {
         $this->etat = $etat;
+        $this->nom = $nom;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+
 
 
     /**

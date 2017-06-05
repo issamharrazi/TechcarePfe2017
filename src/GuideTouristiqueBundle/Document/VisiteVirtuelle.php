@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-class VisiteVirtuelle extends Media
+class VisiteVirtuelle extends File
 {
     /**
      * @MongoDB\Id(strategy="increment")

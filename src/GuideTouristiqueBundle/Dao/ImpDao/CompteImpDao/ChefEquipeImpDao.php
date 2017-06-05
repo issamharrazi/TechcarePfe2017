@@ -11,42 +11,10 @@ namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\ChefEquipeIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
-use GuideTouristiqueBundle\Document\Admin;
 use GuideTouristiqueBundle\Document\ChefEquipe;
 
 class ChefEquipeImpDao extends GenericImplDao implements ChefEquipeIdao
 {
-    public function RegisterChefEquipe($data)
-    {
-        // TODO: Implement RegisterChefEquipe() method.
-        $chefEquipe = new Admin();
-        // $clientAchat->setUsername($data['username']);
-        $chefEquipe->setEmail($data['email']);
-        // $clientAchat->setPassword($data['password']);
-
-        $chefEquipe->setPlainPassword($data['password']);
-        $chefEquipe->setEnabled(true);
-        // $clientAchat->setNom($data['nom']);
-        //  $clientAchat->setPrenom($data['prenom']);
-        // $clientAchat->setChefequipe(null);
-
-
-        $chefEquipe->addRole('ROLE_CHEFEQUIPE');
-        $chefEquipe->setEtat($data['etat']);
-        try {
-
-
-            static::$documentManager->persist($chefEquipe);
-
-            static::$documentManager->flush();
-
-
-        } catch (Exception $e) {
-            echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
-        return $chefEquipe;
-
-    }
 
     public function UpdateChefEquipe($chefEquipe, $data)
     {
@@ -56,12 +24,19 @@ class ChefEquipeImpDao extends GenericImplDao implements ChefEquipeIdao
         $chefEquipe->setPlainPassword($data['password']);
         $chefEquipe->setNom($data['nom']);
         $chefEquipe->setPrenom($data['prenom']);
-        $chefEquipe->setImage($data['image']);
+        if (isset($data['image']))
+            $chefEquipe->setImage($data['image']);
+        if (isset($data['imageCover']))
+            $chefEquipe->setImageCover($data['imageCover']);
+        $chefEquipe->setUsername($data['username']);
+        $chefEquipe->setSexe($data['sexe']);
+        $chefEquipe->setAboutme($data['aboutme']);
+        //$chefEquipe->setSkills();
         $chefEquipe->setNumtel($data['numtel']);
-        $chefEquipe->setAdresse($data['adresse']);
+        if (isset($data['adresse']))
+            $chefEquipe->setAdresse($data['adresse']);
 
 
-        $chefEquipe->setEtat($data['etat']);
         try {
 
 

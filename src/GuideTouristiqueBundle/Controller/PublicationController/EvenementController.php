@@ -37,7 +37,7 @@ class EvenementController extends Controller
     }
 
     /**
-     * @Rest\Put("/update$Event")
+     * @Rest\Put("/updateEvent")
      * @param Request $request
      * @return JsonResponse
      */
@@ -80,7 +80,7 @@ class EvenementController extends Controller
 
 
         $serviceEvent = $this->get(self::SERVICENAME);
-        $Events = $serviceEvent->findAllActivatedEvents();
+        $Events = $serviceEvent->findAllActivatedEvenement();
 
         $EventsJson = Serialiser::serializer($Events);
 

@@ -12,7 +12,6 @@ namespace GuideTouristiqueBundle\Metier\IMetier\CompteIMetier;
 interface ChefEquipeIMetier
 {
 
-    public function addChefEquipe($requestContent);
 
     public function UpdateChefEquipe($requestContent);
 
@@ -44,6 +43,8 @@ interface ChefEquipeIMetier
     public function findAllActivatedChefsEquipe();
 
     public function getChefEquipe($id);
+
+    public function changeEtatChefEquipe($data);
 
 
 }

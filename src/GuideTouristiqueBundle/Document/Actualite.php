@@ -27,9 +27,24 @@ class Actualite
 
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\ActualiteTraduction")
+     * @MongoDB\Field(type="string")
      */
-    private $actualitestraduction;
+    private $nom;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $contenu;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $dateAjout;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $dateModification;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
@@ -37,24 +52,26 @@ class Actualite
     private $etat;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Commentaire")
+     * Actualite constructor.
+     * @param $datepublication
+     * @param $nom
+     * @param $contenu
+     * @param $dateAjout
+     * @param $dateModification
+     * @param $etat
      */
-    private $commentaires;
-
-
-    public function __construct($datepublication, $etat)
+    public function __construct($datepublication, $nom, $contenu, $dateAjout, $dateModification, $etat)
     {
-        $this->actualitestraduction = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->datepublication = $datepublication;
+        $this->nom = $nom;
+        $this->contenu = $contenu;
+        $this->dateAjout = $dateAjout;
+        $this->dateModification = $dateModification;
         $this->etat = $etat;
     }
 
-
     /**
-     * Get id
-     *
-     * @return int_id $id
+     * @return mixed
      */
     public function getId()
     {
@@ -62,9 +79,15 @@ class Actualite
     }
 
     /**
-     * Get datepublication
-     *
-     * @return string $datepublication
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
      */
     public function getDatepublication()
     {
@@ -72,51 +95,79 @@ class Actualite
     }
 
     /**
-     * Set datepublication
-     *
-     * @param string $datepublication
-     * @return $this
+     * @param mixed $datepublication
      */
     public function setDatepublication($datepublication)
     {
         $this->datepublication = $datepublication;
-        return $this;
     }
 
     /**
-     * Add actualitestraduction
-     *
-     * @param \GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction
+     * @return mixed
      */
-    public function addActualitestraduction(\GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction)
+    public function getNom()
     {
-        $this->actualitestraduction[] = $actualitestraduction;
+        return $this->nom;
     }
 
     /**
-     * Remove actualitestraduction
-     *
-     * @param \GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction
+     * @param mixed $nom
      */
-    public function removeActualitestraduction(\GuideTouristiqueBundle\Document\ActualiteTraduction $actualitestraduction)
+    public function setNom($nom)
     {
-        $this->actualitestraduction->removeElement($actualitestraduction);
+        $this->nom = $nom;
     }
 
     /**
-     * Get actualitestraduction
-     *
-     * @return \Doctrine\Common\Collections\Collection $actualitestraduction
+     * @return mixed
      */
-    public function getActualitestraduction()
+    public function getContenu()
     {
-        return $this->actualitestraduction;
+        return $this->contenu;
     }
 
     /**
-     * Get etat
-     *
-     * @return \GuideTouristiqueBundle\Document\Etat $etat
+     * @param mixed $contenu
+     */
+    public function setContenu($contenu)
+    {
+        $this->contenu = $contenu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
+    }
+
+    /**
+     * @param mixed $dateAjout
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateModification()
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * @param mixed $dateModification
+     */
+    public function setDateModification($dateModification)
+    {
+        $this->dateModification = $dateModification;
+    }
+
+    /**
+     * @return mixed
      */
     public function getEtat()
     {
@@ -124,44 +175,12 @@ class Actualite
     }
 
     /**
-     * Set etat
-     *
-     * @param \GuideTouristiqueBundle\Document\Etat $etat
-     * @return $this
+     * @param mixed $etat
      */
-    public function setEtat(\GuideTouristiqueBundle\Document\Etat $etat)
+    public function setEtat($etat)
     {
         $this->etat = $etat;
-        return $this;
     }
 
-    /**
-     * Add commentaire
-     *
-     * @param \GuideTouristiqueBundle\Document\Commentaire $commentaire
-     */
-    public function addCommentaire(\GuideTouristiqueBundle\Document\Commentaire $commentaire)
-    {
-        $this->commentaires[] = $commentaire;
-    }
 
-    /**
-     * Remove commentaire
-     *
-     * @param \GuideTouristiqueBundle\Document\Commentaire $commentaire
-     */
-    public function removeCommentaire(\GuideTouristiqueBundle\Document\Commentaire $commentaire)
-    {
-        $this->commentaires->removeElement($commentaire);
-    }
-
-    /**
-     * Get commentaires
-     *
-     * @return \Doctrine\Common\Collections\Collection $commentaires
-     */
-    public function getCommentaires()
-    {
-        return $this->commentaires;
-    }
 }

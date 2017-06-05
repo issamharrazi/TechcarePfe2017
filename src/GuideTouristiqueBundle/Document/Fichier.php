@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: issaM harrazI
- * Date: 13/04/2017
- * Time: 16:38
+ * User: issam
+ * Date: 31/05/2017
+ * Time: 23:02
  */
 
 namespace GuideTouristiqueBundle\Document;
@@ -13,32 +13,26 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\document
  */
-abstract class Media
+class Fichier extends File
 {
     /**
      * @MongoDB\Id(strategy="increment")
      */
     protected $id;
 
-    /** @MongoDB\Field(type="string") */
-    protected $media;
+    public function __construct($nom, $type, $uploadDate, $taille, $media)
+    {
 
-    /** @MongoDB\Field(type="string") */
-    protected $nom;
+        $this->media = $media;
+        $this->nom = $nom;
+        $this->type = $type;
+        $this->uploadDate = $uploadDate;
+        $this->taille = $taille;
 
-    /** @MongoDB\Field(type="string") */
-    protected $type;
-
-    /** @MongoDB\Field(type="string") */
-    protected $uploadDate;
-    /** @MongoDB\Field(type="int") */
-    protected $taille;
-
+    }
 
     /**
-     * Get id
-     *
-     * @return int_id $id
+     * @return mixed
      */
     public function getId()
     {
@@ -46,9 +40,15 @@ abstract class Media
     }
 
     /**
-     * Get media
-     *
-     * @return string $media
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
      */
     public function getMedia()
     {
@@ -56,21 +56,15 @@ abstract class Media
     }
 
     /**
-     * Set media
-     *
-     * @param string $media
-     * @return self
+     * @param mixed $media
      */
     public function setMedia($media)
     {
         $this->media = $media;
-        return $this;
     }
 
     /**
-     * Get nom
-     *
-     * @return string $nom
+     * @return mixed
      */
     public function getNom()
     {
@@ -78,21 +72,15 @@ abstract class Media
     }
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return self
+     * @param mixed $nom
      */
     public function setNom($nom)
     {
         $this->nom = $nom;
-        return $this;
     }
 
     /**
-     * Get type
-     *
-     * @return string $type
+     * @return mixed
      */
     public function getType()
     {
@@ -100,21 +88,15 @@ abstract class Media
     }
 
     /**
-     * Set type
-     *
-     * @param string $type
-     * @return self
+     * @param mixed $type
      */
     public function setType($type)
     {
         $this->type = $type;
-        return $this;
     }
 
     /**
-     * Get uploadDate
-     *
-     * @return string $uploadDate
+     * @return mixed
      */
     public function getUploadDate()
     {
@@ -122,21 +104,15 @@ abstract class Media
     }
 
     /**
-     * Set uploadDate
-     *
-     * @param string $uploadDate
-     * @return self
+     * @param mixed $uploadDate
      */
     public function setUploadDate($uploadDate)
     {
         $this->uploadDate = $uploadDate;
-        return $this;
     }
 
     /**
-     * Get taille
-     *
-     * @return int $taille
+     * @return mixed
      */
     public function getTaille()
     {
@@ -144,14 +120,11 @@ abstract class Media
     }
 
     /**
-     * Set taille
-     *
-     * @param int $taille
-     * @return self
+     * @param mixed $taille
      */
     public function setTaille($taille)
     {
         $this->taille = $taille;
-        return $this;
     }
+
 }

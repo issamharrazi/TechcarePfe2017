@@ -21,4 +21,7 @@ interface ImageIMetier
     public function getAllImages();
 
     public function getImage($id);
+
+    public function findExistImage($requestContent);
+
 }

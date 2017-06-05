@@ -20,42 +20,26 @@ class Langue
      */
     private $id;
 
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    private $nom;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
+     * @MongoDB\Field(type="bool")
+     */
+    private $default;
+
+    /**
+     * @MongoDB\EmbedOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
      */
     private $etat;
 
+
     /**
      * Langue constructor.
-     * @param $nom
      */
-    public function __construct($nom, $etat)
+    public function __construct($etat, $default)
     {
-        $this->nom = $nom;
+        $this->default = $default;
         $this->etat = $etat;
 
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
-    /**
-     * @param mixed $etat
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
     }
 
     /**
@@ -74,21 +58,36 @@ class Langue
         $this->id = $id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * @param mixed $default
+     */
+    public function setDefault($default)
+    {
+        $this->default = $default;
+    }
 
     /**
      * @return mixed
      */
-    public function getNom()
+    public function getEtat()
     {
-        return $this->nom;
+        return $this->etat;
     }
 
     /**
-     * @param mixed $nom
+     * @param mixed $etat
      */
-    public function setNom($nom)
+    public function setEtat($etat)
     {
-        $this->nom = $nom;
+        $this->etat = $etat;
     }
 
 

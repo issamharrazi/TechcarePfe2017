@@ -68,6 +68,10 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackImageImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.image_acceuil.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\ImageAcceuilImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
     s.cpack_video.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\PackImpDao\CpackVideoImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
@@ -106,6 +110,9 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\EtatImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.etat_realisation.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\EtatRealisationImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
 
     s.duree.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\DureeImpDao
@@ -157,6 +164,10 @@ services:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\LoginImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
+    s.generic_admin.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\GenericAdminImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
 
     s.type_client_vente.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\TypeClientVenteImpDao
@@ -173,6 +184,11 @@ services:
 
     s.chef_equipe.impdao:
         class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\ChefEquipeImpDao
+        arguments: ['@doctrine.odm.mongodb.document_manager']
+
+
+    s.super_admin.impdao:
+        class:     GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao\SuperAdminImpDao
         arguments: ['@doctrine.odm.mongodb.document_manager']
 
 
@@ -216,11 +232,11 @@ services:
 
     s.tache.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\TacheImpMetier\TacheImpMetier
-              arguments:  ['@s.tache.impdao','@s.etat.impmetier']
+              arguments:  ['@s.tache.impdao','@s.etat.impmetier','@s.chef_equipe.impmetier','@s.agent.impmetier','@s.generic_admin.impmetier']
 
     s.type_client_vente.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ClientVenteTypeImpMetier
-              arguments:  ['@s.type_client_vente.impdao','@s.etat.impmetier','@s.langue.impmetier']
+              arguments:  ['@s.type_client_vente.impdao','@s.etat.impmetier']
 
     s.responsable.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ResponsableImpMetier
@@ -243,10 +259,19 @@ services:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\ChefEquipeImpMetier
               arguments:  ['@s.chef_equipe.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
 
+    s.super_admin.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\SuperAdminImpMetier
+              arguments:  ['@s.super_admin.impdao','@s.etat.impmetier','@s.adresse.impmetier','@s.image.impmetier']
+
 
     s.login.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\LoginImpMetier
               arguments:  ['@s.login.impdao','@security.password_encoder','@s.etat.impmetier']
+
+
+    s.generic_admin.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\CompteImpMetier\GenericAdminImpMetier
+              arguments:  ['@s.generic_admin.impdao','@security.password_encoder','@s.etat.impmetier','@s.image.impmetier']
 
 
 
@@ -257,11 +282,11 @@ services:
 
     s.actualite.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\ActualiteImpMetier
-              arguments:  ['@s.actualite.impdao','@s.etat.impmetier','@s.actualite_traduction.impmetier','@s.commentaire.impmetier']
+              arguments:  ['@s.actualite.impdao','@s.etat.impmetier']
 
     s.evenement.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\EvenementImpMetier
-              arguments:  ['@s.evenement.impdao','@s.etat.impmetier','@s.evenement_traduction.impmetier','@s.commentaire.impmetier']
+              arguments:  ['@s.evenement.impdao','@s.etat.impmetier']
 
     s.actualite_traduction.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\PublicationImpMetier\ActualiteTraductionImpMetier
@@ -316,6 +341,10 @@ services:
                   class: GuideTouristiqueBundle\Metier\ImpMetier\ImageImpMetier
                   arguments:  ['@s.image.impdao']
 
+
+    s.image_acceuil.impmetier:
+                  class: GuideTouristiqueBundle\Metier\ImpMetier\ImageAcceuilImpMetier
+                  arguments:  ['@s.image_acceuil.impdao']
     s.video.impmetier:
                   class: GuideTouristiqueBundle\Metier\ImpMetier\VideoImpMetier
                   arguments:  ['@s.video.impdao']
@@ -349,6 +378,11 @@ services:
     s.etat.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\EtatImpMetier
               arguments:  ['@s.etat.impdao']
+
+
+    s.etat_realisation.impmetier:
+              class: GuideTouristiqueBundle\Metier\ImpMetier\EtatRealisationImpMetier
+              arguments:  ['@s.etat_realisation.impdao']
 
     s.adresse.impmetier:
               class: GuideTouristiqueBundle\Metier\ImpMetier\AdresseImpMetier

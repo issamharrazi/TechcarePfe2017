@@ -38,9 +38,31 @@ class Evenement
 
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\EvenementTraduction")
+     * @MongoDB\Field(type="string")
      */
-    private $evenementtraduction;
+    private $nom;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $description;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $lieu;
+
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $dateAjout;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $dateModification;
+
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="GuideTouristiqueBundle\Document\Etat")
@@ -48,21 +70,32 @@ class Evenement
     private $etat;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument="GuideTouristiqueBundle\Document\Commentaire")
+     * Evenement constructor.
+     * @param $datepublication
+     * @param $datedebutevenement
+     * @param $datefinevenement
+     * @param $nom
+     * @param $description
+     * @param $lieu
+     * @param $dateAjout
+     * @param $dateModification
+     * @param $etat
      */
-    private $commentaires;
-
-
-    public function __construct()
+    public function __construct($datepublication, $datedebutevenement, $datefinevenement, $nom, $description, $lieu, $dateAjout, $dateModification, $etat)
     {
-        $this->evenementtraduction = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->datepublication = $datepublication;
+        $this->datedebutevenement = $datedebutevenement;
+        $this->datefinevenement = $datefinevenement;
+        $this->nom = $nom;
+        $this->description = $description;
+        $this->lieu = $lieu;
+        $this->dateAjout = $dateAjout;
+        $this->dateModification = $dateModification;
+        $this->etat = $etat;
     }
 
     /**
-     * Get id
-     *
-     * @return int_id $id
+     * @return mixed
      */
     public function getId()
     {
@@ -70,9 +103,15 @@ class Evenement
     }
 
     /**
-     * Get datepublication
-     *
-     * @return string $datepublication
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
      */
     public function getDatepublication()
     {
@@ -80,21 +119,15 @@ class Evenement
     }
 
     /**
-     * Set datepublication
-     *
-     * @param string $datepublication
-     * @return $this
+     * @param mixed $datepublication
      */
     public function setDatepublication($datepublication)
     {
         $this->datepublication = $datepublication;
-        return $this;
     }
 
     /**
-     * Get datedebutevenement
-     *
-     * @return string $datedebutevenement
+     * @return mixed
      */
     public function getDatedebutevenement()
     {
@@ -102,21 +135,15 @@ class Evenement
     }
 
     /**
-     * Set datedebutevenement
-     *
-     * @param string $datedebutevenement
-     * @return $this
+     * @param mixed $datedebutevenement
      */
     public function setDatedebutevenement($datedebutevenement)
     {
         $this->datedebutevenement = $datedebutevenement;
-        return $this;
     }
 
     /**
-     * Get datefinevenement
-     *
-     * @return string $datefinevenement
+     * @return mixed
      */
     public function getDatefinevenement()
     {
@@ -124,51 +151,95 @@ class Evenement
     }
 
     /**
-     * Set datefinevenement
-     *
-     * @param string $datefinevenement
-     * @return $this
+     * @param mixed $datefinevenement
      */
     public function setDatefinevenement($datefinevenement)
     {
         $this->datefinevenement = $datefinevenement;
-        return $this;
     }
 
     /**
-     * Add evenementtraduction
-     *
-     * @param \GuideTouristiqueBundle\Document\EvenementTraduction $evenementtraduction
+     * @return mixed
      */
-    public function addEvenementtraduction(\GuideTouristiqueBundle\Document\EvenementTraduction $evenementtraduction)
+    public function getNom()
     {
-        $this->evenementtraduction[] = $evenementtraduction;
+        return $this->nom;
     }
 
     /**
-     * Remove evenementtraduction
-     *
-     * @param \GuideTouristiqueBundle\Document\EvenementTraduction $evenementtraduction
+     * @param mixed $nom
      */
-    public function removeEvenementtraduction(\GuideTouristiqueBundle\Document\EvenementTraduction $evenementtraduction)
+    public function setNom($nom)
     {
-        $this->evenementtraduction->removeElement($evenementtraduction);
+        $this->nom = $nom;
     }
 
     /**
-     * Get evenementtraduction
-     *
-     * @return \Doctrine\Common\Collections\Collection $evenementtraduction
+     * @return mixed
      */
-    public function getEvenementtraduction()
+    public function getDescription()
     {
-        return $this->evenementtraduction;
+        return $this->description;
     }
 
     /**
-     * Get etat
-     *
-     * @return \GuideTouristiqueBundle\Document\Etat $etat
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLieu()
+    {
+        return $this->lieu;
+    }
+
+    /**
+     * @param mixed $lieu
+     */
+    public function setLieu($lieu)
+    {
+        $this->lieu = $lieu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
+    }
+
+    /**
+     * @param mixed $dateAjout
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateModification()
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * @param mixed $dateModification
+     */
+    public function setDateModification($dateModification)
+    {
+        $this->dateModification = $dateModification;
+    }
+
+    /**
+     * @return mixed
      */
     public function getEtat()
     {
@@ -176,44 +247,12 @@ class Evenement
     }
 
     /**
-     * Set etat
-     *
-     * @param \GuideTouristiqueBundle\Document\Etat $etat
-     * @return $this
+     * @param mixed $etat
      */
-    public function setEtat(\GuideTouristiqueBundle\Document\Etat $etat)
+    public function setEtat($etat)
     {
         $this->etat = $etat;
-        return $this;
     }
 
-    /**
-     * Add commentaire
-     *
-     * @param \GuideTouristiqueBundle\Document\Commentaire $commentaire
-     */
-    public function addCommentaire(\GuideTouristiqueBundle\Document\Commentaire $commentaire)
-    {
-        $this->commentaires[] = $commentaire;
-    }
 
-    /**
-     * Remove commentaire
-     *
-     * @param \GuideTouristiqueBundle\Document\Commentaire $commentaire
-     */
-    public function removeCommentaire(\GuideTouristiqueBundle\Document\Commentaire $commentaire)
-    {
-        $this->commentaires->removeElement($commentaire);
-    }
-
-    /**
-     * Get commentaires
-     *
-     * @return \Doctrine\Common\Collections\Collection $commentaires
-     */
-    public function getCommentaires()
-    {
-        return $this->commentaires;
-    }
 }

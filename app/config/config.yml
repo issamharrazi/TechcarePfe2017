@@ -31,10 +31,11 @@ framework:
     fragments:       ~
     http_method_override: true
 
+
 # Twig Configuration
 twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
 
 # Doctrine Configuration
 doctrine:
@@ -78,7 +79,7 @@ fos_user:
     db_driver: mongodb # other valid values are 'mongodb' and 'couchdb'
 
     firewall_name: main
-    user_class: GuideTouristiqueBundle\Document\Admin
+    user_class: GuideTouristiqueBundle\Document\Client
     from_email:
             address: techcare2017@gmail.com
             sender_name: You
@@ -87,6 +88,7 @@ fos_rest:
     routing_loader:
         include_format: false
         default_format: json
+    body_listener: true
 
 lexik_jwt_authentication:
     private_key_path: '%jwt_private_key_path%'

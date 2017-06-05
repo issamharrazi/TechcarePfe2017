@@ -18,28 +18,52 @@ class TacheImpMetier implements TacheIMetier
     protected static $idaoImpTache;
     protected static $metierImpAdmin;
     protected static $etatImpMetier;
+    protected static $etatRealisationImpMetier;
+    protected static $chefEquipeImpMetier;
+    protected static $agentImpMetier;
 
-    public function __construct(\GuideTouristiqueBundle\Dao\IDao\TacheIDao\TacheIdao $idaoImpTache, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier)
+    public function __construct(\GuideTouristiqueBundle\Dao\IDao\TacheIDao\TacheIdao $idaoImpTache, \GuideTouristiqueBundle\Metier\IMetier\EtatIMetier $etatImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\ChefEquipeIMetier $chefEquipeImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\AgentIMetier $agentImpMetier, \GuideTouristiqueBundle\Metier\IMetier\CompteIMetier\GenericAdminIMetier $adminImpMetier)
     {
 
         self::$idaoImpTache = $idaoImpTache;
+        self::$agentImpMetier = $agentImpMetier;
+        self::$chefEquipeImpMetier = $chefEquipeImpMetier;
+        self::$metierImpAdmin = $adminImpMetier;
 
 
         self::$etatImpMetier = $etatImpMetier;
 
-
     }
 
 
-    public function addTache($requestContent)
+    public function addTache($data)
     {
         // TODO: Implement addTache() method.
+
+        if (isset($data['agent'])) {
+            $data['agent'] = json_decode($data['agent'], true);
+            $data['agent'] = self::$agentImpMetier->getAgent($data['agent']['id']);
+
+        }
+
+
         $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
 
-        $data['admin'] = self::$metierImpAdmin->getAdmin($data['admin']['id']);
+
+        if ($data['addbychefequipe'] == '1') {
+            $data['chefequipe'] = self::$chefEquipeImpMetier->getChefEquipe($data['chefequipe']["id"]);
+
+        } else {
+            $chefequipe = json_decode($data['chefequipe'], true);
+
+            $data['chefequipe'] = self::$chefEquipeImpMetier->getChefEquipe($chefequipe["id"]);
+        }
 
 
+        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum(1);
+        // dump($data['etattemporaire']);
         $tache = self::$idaoImpTache->addTache($data);
+
 
         return $tache;
 
@@ -47,13 +71,33 @@ class TacheImpMetier implements TacheIMetier
 
     public function updateTache($data)
     {
+
+        dump($data);
+
         // TODO: Implement updateTache() method.
+
+        // var_dump($data['fichierrelie']);
+        if ($data['modifchefequipe'] == '1') {
+
+            $chefequipe = json_decode($data['chefequipe'], true);
+
+            $data['chefequipe'] = self::$chefEquipeImpMetier->getChefEquipe($chefequipe["id"]);
+        } else
+            $data['chefequipe'] = self::$chefEquipeImpMetier->getChefEquipe($data['chefequipe']["id"]);
+
+
+        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum($data['etattemporaire']['num']);
+
         $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
 
-        // TODO: Implement updateCategorie() method.
-        $data['admin'] = self::$metierImpAdmin->updateAdmin($data['admin']);
+
+        if (isset($data['agent'])) {
+            $data['agent'] = self::$agentImpMetier->getAgent($data['agent']['id']);
+        }
+
 
         $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $data['id']);
+
         return self::$idaoImpTache->updateTache($tache, $data);
 
     }
@@ -62,17 +106,27 @@ class TacheImpMetier implements TacheIMetier
     {
         // TODO: Implement deleteTache() method.
         $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $id);
-        self::$metierImpAdmin->deleteAdmin($tache->getAdmin()->getId());
 
 
-        self::$idaoImpTache->delete($tache);
+        self::$idaoImpTache->deleteTache($tache);
 
     }
 
-    public function getAllTaches()
+    public function getAllTaches($idAdmin)
     {
+
+
+        $admin = self::$metierImpAdmin->getAdmin($idAdmin);
+
+
+        if (in_array("ROLE_SUPER_ADMIN", $admin->getRoles()))
+            $taches = self::$idaoImpTache->findAll(self::CLASSNAMETACHE);
+        elseif (in_array("ROLE_CHEFEQUIPE", $admin->getRoles()))
+            $taches = static::$idaoImpTache->getActivatedTaskofChefEquipe($idAdmin);
+        elseif (in_array("ROLE_AGENT", $admin->getRoles()))
+            $taches = static::$idaoImpTache->getActivatedTaskofAgent($idAdmin);
+
         // TODO: Implement getAllTaches() method.
-        $taches = self::$idaoImpTache->findAll(self::CLASSNAMETACHE);
 
 
         return $taches;
@@ -96,5 +150,61 @@ class TacheImpMetier implements TacheIMetier
 
 
         return $tache;
+    }
+
+    public function changerEtatTache($data)
+    {
+        // TODO: Implement changerEtatTache() method.
+        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+
+        $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+        $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $data['id']);
+
+        return self::$idaoImpTache->changerEtatTache($tache, $data);
+
+    }
+
+
+    public function changerTemporairementEtatTache($data)
+    {
+        // TODO: Implement changerEtatTache() method.
+        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum($data['etattemporaire']['num']);
+
+        $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+        $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $data['id']);
+
+        return self::$idaoImpTache->changerEtatTache($tache, $data);
+
+    }
+
+    public function findAllStateChangesByChefEquipe()
+    {
+        // TODO: Implement findAllStateChangesByChefEquipe() method.
+
+
+        $taches = static::$idaoImpTache->getTacheChangedByChefEquipe();
+
+        return $taches;
+    }
+
+
+    public function modifierchangementEtatTache($data)
+    {
+        // TODO: Implement modifierchangementEtatTache() method.
+        $data['etattemporaire'] = self::$etatImpMetier->getEtatByNum($data['etattemporaire']['num']);
+
+        $data['etat'] = self::$etatImpMetier->getEtatByNum($data['etat']['num']);
+        $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $data['id']);
+
+        return self::$idaoImpTache->changerEtatTache($tache, $data);
+    }
+
+    public function uploadRealizedTask($data)
+    {
+        // TODO: Implement uploadRealizedTask() method.
+        $tache = self::$idaoImpTache->findById(self::CLASSNAMETACHE, $data['id']);
+
+        return self::$idaoImpTache->uploadRealizedTask($tache, $data);
+
     }
 }

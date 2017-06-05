@@ -14,7 +14,6 @@ class LoginImpMetier implements LoginIMetier
 {
 
     const CLASSNAMECLIENT = 'Client';
-    const CLASSNAMEADMIN = 'Admin';
 
 
     protected static $idaoImpLogin;
@@ -56,26 +55,6 @@ class LoginImpMetier implements LoginIMetier
         return $Client;
     }
 
-    public function loginAdmin($data)
-    {
-        $validPassword = null;
-
-        // TODO: Implement loginClientAchat() method.
-        $Admin = self::$idaoImpLogin->FindByMail($data['email'], self::CLASSNAMEADMIN);
-        if ($Admin)
-            $validPassword = self::$security->isPasswordValid($Admin, $data['password']);
-
-        else
-            return null;
-
-
-        if (!$validPassword) {
-            return null;
-        }
-
-
-        return $Admin;
-    }
 
 
 }

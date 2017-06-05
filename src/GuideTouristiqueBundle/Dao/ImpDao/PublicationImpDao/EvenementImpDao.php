@@ -19,17 +19,12 @@ class EvenementImpDao extends GenericImplDao implements EvenementIdao
     public function addEvenement($data)
     {
         // TODO: Implement addEvenement() method.
-        $Evenement = new Evenement(date('Y-m-d H:i:s'), $data['debutevenement'], $data['finevenement'], $data['etat']);
+        $Evenement = new Evenement(date('Y-m-d H:i:s'), $data['datedebutevenement'], $data['datefinevenement'], $data['nom'], $data['description'], $data['lieu'], date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), $data['etat']);
 
 
         try {
 
-            for ($i = 0; $i < count($data['evenementtraduction']); $i++) {
-                $Evenement->addEvenementtraduction($data['evenementtraduction'][$i]);
-            }
-
-
-            $Evenement = self::$documentManager->merge($Evenement);
+            self::$documentManager->persist($Evenement);
             self::$documentManager->flush();
 
         } catch (Exception $e) {
@@ -40,36 +35,19 @@ class EvenementImpDao extends GenericImplDao implements EvenementIdao
 
     }
 
-    public function addCommentaireEvenement($Evenement, $data)
-    {
-
-        // TODO: Implement addCommentaireEvenement() method.
-        $Evenement->addCommentaire($data['commentaire']);
-        self::$documentManager->persist($Evenement);
-        self::$documentManager->flush();
-
-
-        return $Evenement;
-    }
-
-    public function updateCommentaireEvenement($Evenement, $data)
-    {
-        // TODO: Implement updateCommentaireEvenement() method.
-        //   $actualite = new Actualite(date('Y-m-d H:i:s'), $data['etat']);
-
-        // $actualite->($data['commentaire']);
-
-
-        $actualite = self::$documentManager->merge($Evenement);
-    }
 
     public function updateEvenement($Evenement, $data)
     {
 
         // TODO: Implement updateEvenement() method.
-        $Evenement->setDatepublication($data['datepublication']);
-        $Evenement->setDatedebutevenement($data['debutevenement']);
-        $Evenement->setDatefinevenement($data['finevenement']);
+        $Evenement->setDatepublication(date('Y-m-d H:i:s'));
+        $Evenement->setDatedebutevenement($data['datedebutevenement']);
+        $Evenement->setDatefinevenement($data['datefinevenement']);
+        $Evenement->setNom($data['nom']);
+        $Evenement->setDescription($data['description']);
+        $Evenement->setLieu($data['lieu']);
+        $Evenement->setDateAjout($data['dateAjout']);
+        $Evenement->setDateModification(date('Y-m-d H:i:s'));
         $Evenement->setEtat($data['etat']);
 
         $Evenement = self::$documentManager->merge($Evenement);

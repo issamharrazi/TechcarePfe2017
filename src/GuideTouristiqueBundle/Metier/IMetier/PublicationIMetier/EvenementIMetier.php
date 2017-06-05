@@ -12,19 +12,11 @@ namespace GuideTouristiqueBundle\Metier\IMetier\PublicationIMetier;
 interface EvenementIMetier
 {
     public function addEvenement($requestContent);
-
-    public function addCommentaireEvenement($data);
-
-    public function updateCommentaireEvenement($data);
-
     public function updateEvenement($requestContent);
-
     public function deleteEvenement($id);
-
     public function getAllEvenements();
-
-    public function findAllActivatedEvenements();
-
     public function getEvenement($id);
+
+    public function findAllActivatedEvenement();
 
 }

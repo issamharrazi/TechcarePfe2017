@@ -33,7 +33,6 @@ interface ChefEquipeIdao extends GenericIDao
     public function addTacheAffecteeTemporaireAuChefEquipe($tacheAffecteeTemporaire, $ChefEquipe);
 
 
-    public function RegisterChefEquipe($document);
 
     public function UpdateChefEquipe($document, $data);
 

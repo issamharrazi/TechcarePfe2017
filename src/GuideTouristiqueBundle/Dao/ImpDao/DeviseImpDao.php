@@ -19,7 +19,7 @@ class DeviseImpDao extends GenericImplDao implements DeviseIdao
     public function addDevise($data)
     {
         // TODO: Implement addDevise() method.
-        $devise = new Devise($data['nom'], $data['code'], $data['codeHtml'], $data['etat']);
+        $devise = new Devise($data['nom'], $data['code'], '&#' . $data['codeHtml'], $data['etat']);
         try {
 
 

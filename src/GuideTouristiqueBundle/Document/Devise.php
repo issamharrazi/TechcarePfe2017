@@ -26,6 +26,7 @@ class Devise
      */
     private $nom;
 
+
     /**
      * @MongoDB\Field(type="string")
      */
@@ -44,16 +45,31 @@ class Devise
 
     /**
      * Devise constructor.
-     * @param $nom
-     * @param $code
+ * @param $code
      * @param $codeHtml
      */
     public function __construct($nom, $code, $codeHtml, $etat)
     {
-        $this->nom = $nom;
         $this->code = $code;
+        $this->nom = $nom;
         $this->codeHtml = $codeHtml;
         $this->etat = $etat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
     }
 
     /**
@@ -89,21 +105,6 @@ class Devise
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param mixed $nom
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    }
 
     /**
      * @return mixed

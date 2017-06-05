@@ -13,14 +13,9 @@ use GuideTouristiqueBundle\Dao\IDao\GenericIDao;
 interface TypeClientIdao extends GenericIDao
 {
 
-    public function addTypeClientVente($tp);
+    public function addTypeClientVente($document);
 
-    public function addTypeClientVenteTraduction($tp);
-
-    public function findAllActivatedByLang($class, $lang);
-
-
-    public function updateTypeClientVenteTraduction($oldtp, $newtp);
+    public function updateTypeClientVente($document, $data);
 
 
 }

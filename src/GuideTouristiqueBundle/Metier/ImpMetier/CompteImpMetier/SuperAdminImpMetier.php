@@ -34,21 +34,6 @@ class SuperAdminImpMetier implements SuperAdminIMetier
 
     }
 
-    public function addSuperAdmin($data)
-    {
-        // TODO: Implement addSuperAdmin() method.
-        $data['etat'] = self::$etatImpMetier->getEtatByNum(1);
-
-        if (!(self::$idaoImpSuperAdmin->FindByMail($data['email'], self::CLASSNAMESUPERADMIN))) {
-            $SuperAdmin = self::$idaoImpSuperAdmin->RegisterSuperAdmin($data);
-            return $SuperAdmin;
-
-        } else
-            return null;
-
-
-    }
-
     public function updateSuperAdmin($data)
     {
         // TODO: Implement updateSuperAdmin() method.
@@ -99,6 +84,13 @@ class SuperAdminImpMetier implements SuperAdminIMetier
     {
         // TODO: Implement getSuperAdmin() method.
         return self::$idaoImpSuperAdmin->findById(self::CLASSNAMESUPERADMIN, $id);
+
+    }
+
+    public function getSuperAdminByMail($mail)
+    {
+        // TODO: Implement getSuperAdminByMail() method.
+        return self::$idaoImpSuperAdmin->FindByMail($mail, self::CLASSNAMESUPERADMIN);
 
     }
 }

@@ -34,7 +34,7 @@ class TacheController extends Controller
         $serviceTask = $this->get(self::SERVICENAME);
         $Task = $serviceTask->addTache($data);
 
-        //$devisesJson= Serialiser::serializer($devise);
+        //  $devisesJson= Serialiser::serializer($Task);
 
         return new JsonResponse('ok');
     }
@@ -49,7 +49,7 @@ class TacheController extends Controller
     {
 
         $data = json_decode($request->getContent(), true);
-
+        dump($data);
         $serviceTask = $this->get(self::SERVICENAME);
         $Task = $serviceTask->updateTache($data);
 
@@ -59,15 +59,105 @@ class TacheController extends Controller
 
 
     /**
-     * @Rest\Get("/getAllTasks")
+     * @Rest\Put("/uploadRealizedTask")
+     * @param Request $request
      * @return JsonResponse
      */
-    public function getAllTasksAction()
+    public function uploadRealizedTaskAction(Request $request)
+    {
+
+        $data = json_decode($request->getContent(), true);
+        dump($data);
+        $serviceTask = $this->get(self::SERVICENAME);
+        $Task = $serviceTask->uploadRealizedTask($data);
+
+
+        return new JsonResponse('success');
+    }
+
+
+    /**
+     * @Rest\Put("/changeStateTask")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changeStateTaskAction(Request $request)
+    {
+
+        $data = json_decode($request->getContent(), true);
+        dump($data);
+        $serviceTask = $this->get(self::SERVICENAME);
+        $Task = $serviceTask->changerEtatTache($data);
+
+
+        return new JsonResponse('success');
+    }
+
+
+    /**
+     * @Rest\Put("/changeTemporaryStateTask")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changeTemporaryStateTaskAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $serviceTask = $this->get(self::SERVICENAME);
+        $Task = $serviceTask->changerTemporairementEtatTache($data);
+
+
+        return new JsonResponse('success');
+    }
+
+
+    /**
+     * @Rest\Put("/updateChangingState")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateChangingStateAction(Request $request)
+    {
+
+        $data = json_decode($request->getContent(), true);
+        dump($data);
+        $serviceTask = $this->get(self::SERVICENAME);
+        $Task = $serviceTask->modifierchangementEtatTache($data);
+
+
+        return new JsonResponse('success');
+    }
+
+    /**
+     * @Rest\Get("/getAllTasks/{idAdmin}")
+     * @return JsonResponse
+     */
+    public function getAllTasksAction(Request $request)
     {
 
 
         $serviceTask = $this->get(self::SERVICENAME);
-        $Tasks = $serviceTask->getAllTaches();
+
+
+        $Tasks = $serviceTask->getAllTaches($request->get('idAdmin'));
+
+
+        $TasksJson = Serialiser::serializer($Tasks);
+
+        return new JsonResponse($TasksJson);
+
+    }
+
+    /**
+     * @Rest\Get("/getAllChangedStateCETasks")
+     * @return JsonResponse
+     */
+    public function getAllChangedStateCETasksAction()
+    {
+
+
+        $serviceTask = $this->get(self::SERVICENAME);
+        $Tasks = $serviceTask->findAllStateChangesByChefEquipe();
 
         $TasksJson = Serialiser::serializer($Tasks);
 

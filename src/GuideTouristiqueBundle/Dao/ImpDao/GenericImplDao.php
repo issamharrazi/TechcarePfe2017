@@ -67,7 +67,7 @@ class GenericImplDao implements GenericIDao
         try {
 
             return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
-                ->findBy(array('etat.num' => 1));
+                ->findBy(array('etat.id' => 1));
 
 
         } catch (Exception $e) {
@@ -81,27 +81,27 @@ class GenericImplDao implements GenericIDao
     public function findAllByLang($class, $lang)
     {
         // TODO: Implement findAllByLang() method.
-        try {
+        /*  try {
 
-            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
-                ->findBy(array('langue.nom' => $lang));
+              return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                  ->findBy(array('langue.nom' => $lang));
 
-        } catch (Exception $e) {
-            echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
+          } catch (Exception $e) {
+              echo 'Exception reçue : ', $e->getMessage(), "\n";
+          }*/
     }
 
     public function findAllActivatedByLang($class, $lang)
     {
         // TODO: Implement findAllActivatedByLang() method.
-        try {
+        /*    try {
 
-            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
-                ->findBy(array('langue.nom' => $lang, 'etat.num' => 1));
+                return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                    ->findBy(array('langue.nom' => $lang, 'etat.num' => 1));
 
-        } catch (Exception $e) {
-            echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
+            } catch (Exception $e) {
+                echo 'Exception reçue : ', $e->getMessage(), "\n";
+            }*/
     }
 
 
@@ -129,7 +129,33 @@ class GenericImplDao implements GenericIDao
         try {
 
             return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
-                ->findOneBy(['email' => $mail, 'etat.num' => 1]);
+                ->findOneBy(['email' => $mail, 'etat.id' => 1]);
+
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function FindAdminByRole($role, $class)
+    {
+        // TODO: Implement FindClientByMail() method.
+        try {
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                ->findBy(['roles' => [$role]]);
+
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
+
+    public function FindActivatedAdminByRole($role, $class)
+    {
+        // TODO: Implement FindClientByMail() method.
+        try {
+            return self::$documentManager->getRepository('GuideTouristiqueBundle:' . $class)
+                ->findBy(['roles' => [$role], 'etat.id' => 1]);
 
 
         } catch (Exception $e) {
@@ -138,4 +164,22 @@ class GenericImplDao implements GenericIDao
     }
 
 
+    public function changeEtatDocument($document, $etat)
+    {
+        // TODO: Implement changeEtatDocument() method.
+
+        try {
+            $document->setEtat($etat);
+
+            $document = static::$documentManager->merge($document);
+
+
+            self::$documentManager->flush();
+            return $document;
+
+
+        } catch (Exception $e) {
+            echo 'Exception reçue : ', $e->getMessage(), "\n";
+        }
+    }
 }

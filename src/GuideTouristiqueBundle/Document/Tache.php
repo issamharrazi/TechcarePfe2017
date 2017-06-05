@@ -37,20 +37,39 @@ class Tache
     /**
      * @MongoDB\ReferenceOne(targetDocument="Admin")
      */
-    private $admin;
+    private $chefequipe;
 
     /**
-     * Tache constructor.
-     * @param $description
-     * @param $etat
+     * @MongoDB\ReferenceOne(targetDocument="Admin")
      */
-    public function __construct($nom, $description, $etat, $admin)
-    {
-        $this->description = $description;
-        $this->etat = $etat;
-        $this->admin = $admin;
-        $this->nom = $nom;
-    }
+    private $agent;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $datedebut;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $datefin;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Etat")
+     */
+    private $etattemporaire;
+
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Fichier")
+     */
+    private $fichierelie;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Fichier")
+     */
+    private $tacherealise;
+
 
     /**
      * @return mixed
@@ -87,6 +106,22 @@ class Tache
     /**
      * @return mixed
      */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getEtat()
     {
         return $this->etat;
@@ -103,38 +138,115 @@ class Tache
     /**
      * @return mixed
      */
-    public function getAdmin()
+    public function getChefequipe()
     {
-        return $this->admin;
+        return $this->chefequipe;
     }
 
-
-    public function setAdmin($admin)
+    /**
+     * @param mixed $chefequipe
+     */
+    public function setChefequipe($chefequipe)
     {
-        $this->admin = $admin;
+        $this->chefequipe = $chefequipe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAgent()
+    {
+        return $this->agent;
+    }
+
+    /**
+     * @param mixed $agent
+     */
+    public function setAgent($agent)
+    {
+        $this->agent = $agent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatedebut()
+    {
+        return $this->datedebut;
+    }
+
+    /**
+     * @param mixed $datedebut
+     */
+    public function setDatedebut($datedebut)
+    {
+        $this->datedebut = $datedebut;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatefin()
+    {
+        return $this->datefin;
+    }
+
+    /**
+     * @param mixed $datefin
+     */
+    public function setDatefin($datefin)
+    {
+        $this->datefin = $datefin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEtattemporaire()
+    {
+        return $this->etattemporaire;
+    }
+
+    /**
+     * @param mixed $etattemporaire
+     */
+    public function setEtattemporaire($etattemporaire)
+    {
+        $this->etattemporaire = $etattemporaire;
     }
 
 
     /**
      * @return mixed
      */
-    public function getDescription()
+    public function getFichierelie()
     {
-        return $this->description;
+        return $this->fichierelie;
     }
 
     /**
-     * @param mixed $description
+     * @param mixed $fichierelie
      */
-    public function setDescription($description)
+    public function setFichierelie($fichierelie)
     {
-        $this->description = $description;
+        $this->fichierelie = $fichierelie;
     }
 
     /**
-     * Task constructor.
+     * @return mixed
      */
+    public function getTacherealise()
+    {
+        return $this->tacherealise;
+    }
 
+    /**
+     * @param mixed $tacherealise
+     */
+    public function setTacherealise($tacherealise)
+    {
+        $this->tacherealise = $tacherealise;
+    }
 
 
 }

@@ -22,7 +22,7 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
     {
         // TODO: Implement RegisterClientVente() method.
         $clientVente = new Client();
-        //$clientVente->setUsername($data['email']);
+        $clientVente->setUsername($data['username']);
         $clientVente->setEmail($data['email']);
         $clientVente->setPlainPassword($data['password']);
         $clientVente->setEnabled(true);
@@ -34,6 +34,7 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
         $clientVente->addRole('ROLE_CLIENT_VENTE');
         $clientVente->setEtat($data['etat']);
         $clientVente->setEtattemporaire($data['etat']);
+        $clientVente->setType($data['type']);
         try {
 
 
@@ -52,18 +53,9 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
         // TODO: Implement updateClientVente() method.
         $clientVente->setEmail($data['email']);
         $clientVente->setPlainPassword($data['password']);
-        $clientVente->setNometablissement($data['nometablissement']);
-        // $clientVente->setTypetrad($data['typetrad']);
+        $clientVente->setType($data['type']);
+        $clientVente->setUsername($data['username']);
 
-        $clientVente->setAdresse($data['adresse']);
-        $clientVente->setImage($data['image']);
-        $clientVente->setNumtel($data['numtel']);
-        $clientVente->setFax($data['fax']);
-        $clientVente->clearResponsable();
-
-        for ($i = 0; $i < count($data['responsables']); $i++) {
-            $clientVente->addResponsable($data['responsables'][$i]);
-        }
 
         $clientVente->setEtat($data['etat']);
         //$clientVente->setChefequipe($data['chefequipe']);
@@ -156,4 +148,6 @@ class ClientVenteImpDao extends GenericImplDao implements ClientVenteIdao
             echo 'Exception reçue : ', $e->getMessage(), "\n";
         }
     }
+
+
 }

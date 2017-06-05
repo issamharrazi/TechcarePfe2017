@@ -11,26 +11,16 @@ namespace GuideTouristiqueBundle\Metier\IMetier\CompteIMetier;
 
 interface ClientVenteTypeIMetier
 {
-    ///////////////////add////////////////////////
     public function addClientVenteType($requestContent);
 
-    public function addClientVenteTypeTraduction($requestContent);
-
-
-    public function updateClientVenteTypeTraduction($requestContent);
-
+    public function updateClientVenteType($requestContent);
     public function deleteClientVenteType($id);
-
+    public function getAllClientVenteType();
 
     public function getClientVenteType($id);
 
+    public function findAllActivatedClientVenteType();
 
-    ////////////////////get all////////////////////////////
-    public function getAllClientVenteType();
-
-    public function getAllClientVenteTypeByLang($nomLang);
-
-    public function getAllActivatedClientVenteTypesByLang($nomLang);
 
 
 }

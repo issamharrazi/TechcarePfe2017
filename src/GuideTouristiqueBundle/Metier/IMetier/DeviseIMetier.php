@@ -12,15 +12,10 @@ namespace GuideTouristiqueBundle\Metier\IMetier;
 interface DeviseIMetier
 {
     public function addDevise($requestContent);
-
     public function updateDevise($requestContent);
-
     public function deleteDevise($id);
-
     public function getAllDevise();
-
     public function getDevise($id);
-
     public function findAllActivatedDevise();
 
 }

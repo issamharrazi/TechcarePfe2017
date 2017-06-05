@@ -18,10 +18,17 @@ interface GenericIDao
 
     public function FindByMail($mail, $class);
 
+    public function changeEtatDocument($document, $etat);
+
+
 
 
     ///////////////find all////////
     public function findAll($class);
+
+    public function FindAdminByRole($role, $class);
+
+    public function FindActivatedAdminByRole($role, $class);
 
     public function findAllByLang($class, $lang);
     public function findAllActivated($class);

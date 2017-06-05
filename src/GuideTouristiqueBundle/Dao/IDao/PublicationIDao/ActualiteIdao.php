@@ -13,16 +13,9 @@ use GuideTouristiqueBundle\Dao\IDao\GenericIDao;
 
 interface ActualiteIdao extends GenericIDao
 {
-    public function addActualites($actualites);
+    public function addActualite($actualites);
 
-    public function addCommentaireActualites($actualite, $data);
-
-    public function updateCommentaireActualite($actualite, $data);
-    //   public function deleteCommentaireActualite($actualites);
-    //  public function showCommentairesActualite($actualites);
-    //  public function showCommentaireActualite();
-
-    public function updateActualites($oldActualites, $newActualites);
+    public function updateActualite($oldActualites, $newActualites);
 
 
 }

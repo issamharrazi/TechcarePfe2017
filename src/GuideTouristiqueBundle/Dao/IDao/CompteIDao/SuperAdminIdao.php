@@ -15,7 +15,6 @@ interface SuperAdminIdao extends GenericIDao
 {
 
 
-    public function RegisterSuperAdmin($document);
 
     public function UpdateSuperAdmin($document, $data);
 

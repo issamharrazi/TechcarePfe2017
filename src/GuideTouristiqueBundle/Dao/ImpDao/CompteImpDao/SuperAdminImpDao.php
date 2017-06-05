@@ -11,42 +11,11 @@ namespace GuideTouristiqueBundle\Dao\ImpDao\CompteImpDao;
 use Exception;
 use GuideTouristiqueBundle\Dao\IDao\CompteIDao\SuperAdminIdao;
 use GuideTouristiqueBundle\Dao\ImpDao\GenericImplDao;
-use GuideTouristiqueBundle\Document\Admin;
 
 
 class SuperAdminImpDao extends GenericImplDao implements SuperAdminIdao
 {
 
-    public function RegisterSuperAdmin($data)
-    {
-        // TODO: Implement RegisterSuperAdmin() method.
-        $SuperAdmin = new Admin();
-        // $clientAchat->setUsername($data['username']);
-        $SuperAdmin->setEmail($data['email']);
-        // $clientAchat->setPassword($data['password']);
-
-        $SuperAdmin->setPlainPassword($data['password']);
-        $SuperAdmin->setEnabled(true);
-        // $clientAchat->setNom($data['nom']);
-        //  $clientAchat->setPrenom($data['prenom']);
-        // $clientAchat->setChefequipe(null);
-        $SuperAdmin->setEtat($data['etat']);
-
-
-        $SuperAdmin->addRole('ROLE_SUPER_ADMIN');
-        try {
-
-
-            static::$documentManager->persist($SuperAdmin);
-
-            static::$documentManager->flush();
-
-
-        } catch (Exception $e) {
-            echo 'Exception reçue : ', $e->getMessage(), "\n";
-        }
-        return $SuperAdmin;
-    }
 
     public function UpdateSuperAdmin($SuperAdmin, $data)
     {
